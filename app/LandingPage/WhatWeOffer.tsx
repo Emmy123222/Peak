@@ -15,10 +15,18 @@ const WhatWeOffer = () => {
       <div className="container-custom">
         <div className="flex flex-col md:flex-row gap-16 md:gap-16 justify-between">
           {/* Left side - Title */}
-          <div className=" md:w-1/4 mr-48">
+          <div className=" md:w-1/4 mr-48 space-y-8 max-sm:mr-0">
             <h2 className="font-montserrat font-bold text-[48px] leading-[67px] tracking-[0%] whitespace-nowrap">
               What we offer
             </h2>
+            <div className="flex flex-col items-center sm:items-start">
+              <img src="/images/girlss.png" alt="" className="" />
+              <img
+                src="/icons/Vector (4).png"
+                alt=""
+                className=" ml-0 sm:ml-28"
+              />
+            </div>
           </div>
 
           {/* Right side - Content grid */}
