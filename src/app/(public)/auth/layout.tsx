@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import "@/app/globals.css";
+import { ReduxProvider } from "@/lib/redux-provider";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -13,8 +14,8 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   const pathname = usePathname();
 
   return (
-    <html lang="en">
-    <body className="flex min-h-screen">
+
+    <div className="flex min-h-screen">
       {/* Left side with background + foreground image */}
       <div className=" md:flex md:w-1/2 relative max-sm:hidden">
         {/* Background image */}
@@ -40,9 +41,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
       {/* Right side with content */}
       <div className="w-full  flex items-center justify-center p-6">
-        <div className="w-full max-w-md">{children}</div>
+        <div className="w-full max-w-md"><ReduxProvider>{children}</ReduxProvider></div>
+              
       </div>
-    </body>
-    </html>
+    </div>
+
   );
 }

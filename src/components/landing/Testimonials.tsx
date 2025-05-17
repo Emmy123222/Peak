@@ -77,12 +77,12 @@ const Testimonials = () => {
 
   return (
     <section className="w-full py-16 md:py-24 bg-white overflow-hidden">
-      <div className="container px-1 md:px-6">
+      <div className="container px-1 md:px-6 mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center text-gray-900">
           Why parents love us
         </h2>
 
-        <div className="relative max-w-6xl mx-auto overflow-hidden">
+        <div className="relative max-w-6xl mx-auto overflow-hidden ">
           {/* Left blur effect - stronger blur */}
           <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white via-white to-transparent z-10"></div>
 

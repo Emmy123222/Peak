@@ -1,6 +1,4 @@
-// app/layout.tsx
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+// This is a layout.tsx file for a Next.js application.
 import "@/app/globals.css";
 import { ReactNode } from "react";
 
@@ -9,13 +7,11 @@ export const metadata = {
   description: "Your website description",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen">
-        <Navbar />
         <main className="flex-grow">{children}</main>
-        <Footer />
       </body>
     </html>
   );

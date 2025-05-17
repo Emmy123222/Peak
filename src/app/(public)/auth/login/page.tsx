@@ -120,7 +120,7 @@ export default function Login() {
 
           </div>
           <Link
-              href="/Authentication/forget-password"
+              href="/auth/forget-password"
               className="text-sm text-[#640789] hover:underline font-medium"
             >
               Forgot Password?
@@ -194,7 +194,7 @@ export default function Login() {
         <p className="text-sm text-gray-600">
           Don't have an account?{" "}
           <Link
-            href="/Authentication"
+            href="/auth"
             className="text-[#640789] font-medium hover:underline"
           >
             Sign up

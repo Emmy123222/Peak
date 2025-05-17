@@ -17,7 +17,7 @@ export function Hero() {
 
   return (
     <section className="relative w-full pt-24 pb-16 overflow-hidden">
-      <div className="container mx-auto  flex flex-col lg:flex-row items-center relative z-10">
+      <div className="container mx-auto  flex flex-col lg:flex-row items-center relative z-10 justify-between">
         <div className="w-full lg:w-1/2 lg:pr-8 z-10">
           <h1 className="font-montserrat font-bold text-[55px] leading-[75px] tracking-[0px]">
             Unlock Your Brilliance{" "}
@@ -86,6 +86,8 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+
     </section>
   );
 }

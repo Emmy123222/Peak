@@ -4,19 +4,23 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { User, GraduationCap, Users } from "lucide-react";
-
+import { useDispatch, useSelector } from "react-redux";
+// import { User, GraduationCap, Users } from "lucide-react";
+import { AppDispatch } from "@/store"; 
+import { setRole } from "@/store/features/authSlice";
 export default function RoleSelection() {
   const router = useRouter();
-  const [selectedRole, setSelectedRole] = React.useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
+  // const [selectedRole, setSelectedRole] = React.useState<string | null>(null);
+  const {role: selectedRole} = useSelector((state: any) => state.auth);
   const handleProceed = () => {
     if (selectedRole === "student") {
-      router.push("/Authentication/Student/sign-up");
+      router.push("/auth/signup/student");
     } else if (selectedRole === "tutor") {
-      router.push("/Authentication/Tutor/sign-up");
+      router.push("/auth/signup/tutor");
     } else if (selectedRole === "parent") {
-      router.push("/Authentication/parent/sign-up");
+      router.push("/auth/signup/parent");
     }
   };
 
@@ -40,7 +44,7 @@ export default function RoleSelection() {
               ? "border-purple-500 bg-purple-50 shadow-sm"
               : "border-gray-200 hover:border-purple-200"
           }`}
-          onClick={() => setSelectedRole("student")}
+          onClick={() => dispatch(setRole("student"))}
         >
           <div className="flex items-center gap-4">
             <div
@@ -80,7 +84,7 @@ export default function RoleSelection() {
               ? "border-purple-500 bg-purple-50 shadow-sm"
               : "border-gray-200 hover:border-purple-200"
           }`}
-          onClick={() => setSelectedRole("tutor")}
+          onClick={() => dispatch(setRole("tutor"))}
         >
           <div className="flex items-center gap-4">
             <div
@@ -122,7 +126,7 @@ export default function RoleSelection() {
               ? "border-purple-500 bg-purple-50 shadow-sm"
               : "border-gray-200 hover:border-purple-200"
           }`}
-          onClick={() => setSelectedRole("parent")}
+          onClick={() => dispatch(setRole("parent"))}
         >
           <div className="flex items-center gap-4">
             <div
@@ -158,7 +162,7 @@ export default function RoleSelection() {
       </div>
 
       <button
-        className={`w-full py-3 px-4 mt-8 rounded-full font-medium transition-all ${
+        className={`w-full py-3 px-4 mt-8 rounded-full font-medium transition-all cursor-pointer ${
           selectedRole
             ? "bg-[#640789] text-white hover:bg-[#640789]"
             : "bg-purple-300 text-white cursor-not-allowed"
@@ -173,7 +177,7 @@ export default function RoleSelection() {
         <p className="text-sm text-gray-600">
           Already have an account?{" "}
           <Link
-            href="/Authentication/Login"
+            href="/auth/login"
             className="text-purple-700 font-medium hover:underline"
           >
             Login

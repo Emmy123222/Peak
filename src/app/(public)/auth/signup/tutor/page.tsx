@@ -4,7 +4,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, User, Mail, Lock, BookOpen } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  User,
+  Mail,
+  Lock,
+  GraduationCap,
+  Phone,
+  Briefcase,
+  BookOpen,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,9 +23,11 @@ import EmailVerificationModal from "@/components/auth/email-verification";
 const signUpSchema = z
   .object({
     fullName: z.string().min(2, "Name is required"),
-    age: z.string().min(1, "Age range is required"),
-    gradeLevel: z.string().min(1, "Grade level is required"),
     email: z.string().email("Please enter a valid email"),
+    phoneNumber: z.string().min(10, "Please enter a valid phone number"),
+    // qualification: z.string().min(2, "Qualification is required"),
+    // experience: z.string().min(1, "Years of experience is required"),
+    // subjects: z.string().min(1, "Subject is required"),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
     acceptTerms: z.boolean().refine((val) => val === true, {
@@ -29,7 +41,7 @@ const signUpSchema = z
 
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
-export default function StudentSignUp() {
+export default function TutorSignUp() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -43,9 +55,9 @@ export default function StudentSignUp() {
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       fullName: "",
-      age: "",
-      gradeLevel: "",
       email: "",
+      phoneNumber: "",
+
       password: "",
       confirmPassword: "",
       acceptTerms: false,
@@ -59,7 +71,7 @@ export default function StudentSignUp() {
 
   const handleVerificationSuccess = () => {
     setShowVerificationModal(false);
-    router.push("/Authentication/Student/preference");
+    router.push("/dashboard");
   };
 
   return (
@@ -72,7 +84,7 @@ export default function StudentSignUp() {
       >
         <div className="space-y-2">
           <h1 className="font-semibold text-[30px] leading-[38px] text-center font-[Montserrat]">
-            Sign Up
+            Sign Up as Tutor
           </h1>
         </div>
 
@@ -103,98 +115,8 @@ export default function StudentSignUp() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="age" className="text-sm font-medium">
-              Age
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <User className="h-5 w-5 text-gray-400" />
-              </div>
-              <select
-                id="age"
-                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.age
-                    ? "border-red-300 focus:ring-red-200"
-                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-                }`}
-                {...register("age")}
-              >
-                <option value="">Select your age range</option>
-                <option value="5-8">5-8 years</option>
-                <option value="9-12">9-12 years</option>
-                <option value="13-15">13-15 years</option>
-                <option value="16-18">16-18 years</option>
-                <option value="18+">18+ years</option>
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-            {errors.age && (
-              <p className="text-sm text-red-500">{errors.age.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="gradeLevel" className="text-sm font-medium">
-              Grade level
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <BookOpen className="h-5 w-5 text-gray-400" />
-              </div>
-              <select
-                id="gradeLevel"
-                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.gradeLevel
-                    ? "border-red-300 focus:ring-red-200"
-                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-                }`}
-                {...register("gradeLevel")}
-              >
-                <option value="">Select your grade level</option>
-                <option value="grade1-3">Grade 1-3</option>
-                <option value="grade4-6">Grade 4-6</option>
-                <option value="grade7-9">Grade 7-9</option>
-                <option value="grade10-12">Grade 10-12</option>
-                <option value="college">College/University</option>
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-            {errors.gradeLevel && (
-              <p className="text-sm text-red-500">
-                {errors.gradeLevel.message}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-2">
             <label htmlFor="email" className="text-sm font-medium">
-              Email (Parent's email for minors)
+              Email
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -203,7 +125,7 @@ export default function StudentSignUp() {
               <input
                 id="email"
                 type="email"
-                placeholder="olivia@untitledui.com"
+                placeholder="Enter your email"
                 className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
                   errors.email
                     ? "border-red-300 focus:ring-red-200"
@@ -216,6 +138,171 @@ export default function StudentSignUp() {
               <p className="text-sm text-red-500">{errors.email.message}</p>
             )}
           </div>
+
+          <div className="space-y-2">
+            <label htmlFor="phoneNumber" className="text-sm font-medium">
+              Phone number
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                <Phone className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="phoneNumber"
+                type="tel"
+                placeholder="+234 00-0000-0000"
+                className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                  errors.phoneNumber
+                    ? "border-red-300 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
+                }`}
+                {...register("phoneNumber")}
+              />
+            </div>
+            {errors.phoneNumber && (
+              <p className="text-sm text-red-500">
+                {errors.phoneNumber.message}
+              </p>
+            )}
+          </div>
+
+          {/* <div className="space-y-2">
+            <label htmlFor="qualification" className="text-sm font-medium">
+              Highest Qualification
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                <GraduationCap className="h-5 w-5 text-gray-400" />
+              </div>
+              <select
+                id="qualification"
+                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
+                  errors.qualification
+                    ? "border-red-300 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
+                }`}
+                {...register("qualification")}
+              >
+                <option value="">Select qualification</option>
+                <option value="bachelors">Bachelor's Degree</option>
+                <option value="masters">Master's Degree</option>
+                <option value="phd">Ph.D.</option>
+                <option value="other">Other Professional Certification</option>
+              </select>
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            {errors.qualification && (
+              <p className="text-sm text-red-500">
+                {errors.qualification.message}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="experience" className="text-sm font-medium">
+              Years of Experience
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                <Briefcase className="h-5 w-5 text-gray-400" />
+              </div>
+              <select
+                id="experience"
+                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
+                  errors.experience
+                    ? "border-red-300 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
+                }`}
+                {...register("experience")}
+              >
+                <option value="">Select years of experience</option>
+                <option value="0-2">0-2 years</option>
+                <option value="3-5">3-5 years</option>
+                <option value="6-10">6-10 years</option>
+                <option value="10+">10+ years</option>
+              </select>
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            {errors.experience && (
+              <p className="text-sm text-red-500">
+                {errors.experience.message}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="subjects" className="text-sm font-medium">
+              Subjects You Can Teach
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                <BookOpen className="h-5 w-5 text-gray-400" />
+              </div>
+              <select
+                id="subjects"
+                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
+                  errors.subjects
+                    ? "border-red-300 focus:ring-red-200"
+                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
+                }`}
+                {...register("subjects")}
+              >
+                <option value="">Select primary subject</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="english">English Language</option>
+                <option value="physics">Physics</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="biology">Biology</option>
+                <option value="economics">Economics</option>
+                <option value="history">History</option>
+                <option value="geography">Geography</option>
+                <option value="computer-science">Computer Science</option>
+              </select>
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            {errors.subjects && (
+              <p className="text-sm text-red-500">{errors.subjects.message}</p>
+            )}
+          </div> */}
 
           <div className="space-y-2">
             <label htmlFor="password" className="text-sm font-medium">
@@ -264,7 +351,7 @@ export default function StudentSignUp() {
               <input
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
-                placeholder="Enter password"
+                placeholder="Confirm password"
                 className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 ${
                   errors.confirmPassword
                     ? "border-red-300 focus:ring-red-200"
@@ -319,7 +406,7 @@ export default function StudentSignUp() {
             type="submit"
             className="w-full py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
-            Continue
+            Sign up
           </button>
         </form>
 
@@ -327,7 +414,7 @@ export default function StudentSignUp() {
           <p className="text-sm text-gray-600">
             Already have an account?{" "}
             <Link
-              href="/Authentication/Login"
+              href="/auth/login"
               className="text-purple-700 font-medium hover:underline"
             >
               Login

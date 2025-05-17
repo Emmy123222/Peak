@@ -38,7 +38,7 @@ export default function ForgotPassword() {
   };
   const handleVerificationSuccess = () => {
     setShowVerificationModal(false);
-    router.push("/Authentication/forget-password/OTP");
+    router.push("/auth/forget-password/OTP");
   };
   const router = useRouter();
 
@@ -51,7 +51,7 @@ export default function ForgotPassword() {
         className="space-y-6"
       >
         <Link
-          href="/Authentication/Login"
+          href="/auth/login"
           className="inline-flex items-center text-sm text-purple-700 hover:text-purple-800"
         >
           <ArrowLeft className="mr-1 h-4 w-4" />
@@ -107,7 +107,7 @@ export default function ForgotPassword() {
                 className="text-purple-700 font-medium hover:text-[#640789] w-full py-2.5 px-4 border border-[#640789] rounded-full bg-white flex justify-center items-center"
 
               >
-                <Link href="/Authentication/Login"
+                <Link href="/auth/login"
                   className="mx-auto text-center"
                 >
                   Login
@@ -135,7 +135,7 @@ export default function ForgotPassword() {
 
             <div className="pt-4">
               <Link
-                href="/Authentication/Login"
+                href="/auth/login"
                 className="text-purple-700 font-medium hover:underline"
               >
                 Back to login

@@ -9,14 +9,20 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import EmailVerificationModal from "@/components/auth/email-verification";
+import { registerUser } from "@/actions/authActions";
+// import { register } from "module";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
 
 const signUpSchema = z
   .object({
-    fullName: z.string().min(2, "Name is required"),
+    name: z.string().min(2, "Name is required"),
+    // role: z.string().min(2, "Valid role student, parent or tutor is required"),
     email: z.string().email("Please enter a valid email"),
-    phoneNumber: z.string().min(10, "Please enter a valid phone number"),
+    phone: z.string().min(10, "Please enter a valid phone number"),
     childName: z.string().min(2, "Child's name is required"),
-    childGradeLevel: z.string().min(1, "Grade level is required"),
+    age: z.string().min(1, "Age is required"),
+    grade: z.string().min(1, "Grade level is required"),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
     acceptTerms: z.boolean().refine((val) => val === true, {
@@ -35,6 +41,7 @@ export default function ParentSignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     register,
@@ -43,19 +50,34 @@ export default function ParentSignUp() {
   } = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      fullName: "",
+      name: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
+      // role: "parent",
       childName: "",
-      childGradeLevel: "",
+      grade: "",
+      age: "",
       password: "",
       confirmPassword: "",
       acceptTerms: false,
     },
   });
 
+  const registerAndLogin = async (data: any) => {
+    const userData = {data, role: "parent"};
+    console.log(" User Data:", userData);
+    try {
+      const response = await dispatch(registerUser(userData as any));
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
   const onSubmit = (data: SignUpFormValues) => {
-    console.log(data);
+    console.log("3")
+    // registerAndLogin(data);
     setShowVerificationModal(true);
   };
 
@@ -88,19 +110,19 @@ export default function ParentSignUp() {
                 <User className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                id="fullName"
+                id="name"
                 type="text"
                 placeholder="Enter full name"
                 className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.fullName
+                  errors.name
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("fullName")}
+                {...register("name")}
               />
             </div>
-            {errors.fullName && (
-              <p className="text-sm text-red-500">{errors.fullName.message}</p>
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
             )}
           </div>
 
@@ -130,7 +152,7 @@ export default function ParentSignUp() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="phoneNumber" className="text-sm font-medium">
+            <label htmlFor="phone" className="text-sm font-medium">
               Phone number
             </label>
             <div className="relative">
@@ -138,20 +160,20 @@ export default function ParentSignUp() {
                 <Phone className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                id="phoneNumber"
+                id="phone"
                 type="tel"
                 placeholder="+234 00-0000-0000"
                 className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.phoneNumber
+                  errors.phone
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("phoneNumber")}
+                {...register("phone")}
               />
             </div>
-            {errors.phoneNumber && (
+            {errors.phone && (
               <p className="text-sm text-red-500">
-                {errors.phoneNumber.message}
+                {errors.phone.message}
               </p>
             )}
           </div>
@@ -182,7 +204,7 @@ export default function ParentSignUp() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="childGradeLevel" className="text-sm font-medium">
+            <label htmlFor="grade" className="text-sm font-medium">
               Child's grade level
             </label>
             <div className="relative">
@@ -190,13 +212,13 @@ export default function ParentSignUp() {
                 <BookOpen className="h-5 w-5 text-gray-400" />
               </div>
               <select
-                id="childGradeLevel"
+                id="grade"
                 className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.childGradeLevel
+                  errors.grade
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("childGradeLevel")}
+                {...register("grade")}
               >
                 <option value="">Select grade level</option>
                 <option value="grade1-3">Grade 1-3</option>
@@ -219,9 +241,9 @@ export default function ParentSignUp() {
                 </svg>
               </div>
             </div>
-            {errors.childGradeLevel && (
+            {errors.grade && (
               <p className="text-sm text-red-500">
-                {errors.childGradeLevel.message}
+                {errors.grade.message}
               </p>
             )}
           </div>
@@ -325,19 +347,24 @@ export default function ParentSignUp() {
           )}
 
           <button
-            type="submit"
-            className="w-full py-3 px-4 bg-[#640789] text-white font-medium  hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-full"
-          >
-            Sign up
-          </button>
+  type="submit"
+  // disabled={isLoading}
+  className={`w-full py-3 px-4 bg-[#640789] text-white font-medium hover:bg-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-full ${
+    // isLoading ? "opacity-70 cursor-not-allowed" : ""
+    ""
+  }`}
+>
+  {/* {isLoading ? "Processing..." : "Sign up"} */}
+  Sign up
+</button>
         </form>
 
         <div className="text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{" "}
             <Link
-              href="/Authentication/Login"
-              className="text-purple-700 font-medium hover:underline"
+              href="/auth/login"
+              className="text-purple-700 font-medium hover:underline cursor-pointer"
             >
               Login
             </Link>

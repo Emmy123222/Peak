@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const UnlockSection = () => {
   const router = useRouter();
   const handleSignUpClick = () => {
-    router.push("/Authentication"); // Update this path if different
+    router.push("/auth"); // Update this path if different
   };
 
   return (

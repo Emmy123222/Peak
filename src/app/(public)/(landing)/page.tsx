@@ -10,7 +10,7 @@ import Testimonials from "@/components/landing/Testimonials";
 import Pricing from "@/components/landing/Pricing";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Landing from "./_home/home";
+import Landing from "@/components/landing/home";
 export default function Home() {
   // const router = useRouter();
   // useEffect(() => {

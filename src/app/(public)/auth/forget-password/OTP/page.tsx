@@ -34,7 +34,7 @@ const OTPVerificationForm = () => {
     // If all digits are filled, redirect
     const fullOtp = newOtp.join("");
     if (fullOtp.length === 4 && newOtp.every((digit) => digit)) {
-      router.push("/Authentication/forget-password/Reset");
+      router.push("/auth/forget-password/reset");
     }
   };
 
