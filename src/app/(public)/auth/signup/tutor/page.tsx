@@ -71,7 +71,7 @@ export default function TutorSignUp() {
 
   const handleVerificationSuccess = () => {
     setShowVerificationModal(false);
-    router.push("/dashboard");
+    router.push("/dashboard/tutordashboard");
   };
 
   return (
