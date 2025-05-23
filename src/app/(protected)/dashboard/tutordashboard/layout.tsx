@@ -1,4 +1,4 @@
-// peak/app/protected/tutordashboard/layout.tsx or a suitable layout file
+// src/app/(protected)/dashboard/tutordashboard/layout.tsx
 "use client";
 
 import { useState } from "react";
@@ -105,72 +105,72 @@ function Sidebar() {
               href="/dashboard/tutordashboard/exams-subjects"
               icon={Book}
               label="Exams & Subjects"
-              active={pathname === "/protected/tutordashboard/exams-subjects"}
+              active={pathname === "/dashboard/tutordashboard/exams-subjects"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/protected/tutordashboard/my-classes" && "bg-purple-200"
+              pathname === "/dashboard/tutordashboard/my-classes" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/protected/tutordashboard/my-classes"
+              href="/dashboard/tutordashboard/my-classes"
               icon={GraduationCap}
               label="My Classes"
-              active={pathname === "/protected/tutordashboard/my-classes"}
+              active={pathname === "/dashboard/tutordashboard/my-classes"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/protected/tutordashboard/quiz-with-ai" && "bg-purple-200"
+              pathname === "/dashboard/tutordashboard/quiz-with-ai" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/protected/tutordashboard/quiz-with-ai"
+              href="/dashboard/tutordashboard/quiz-with-ai"
               icon={BrainCircuit}
               label="Quiz with AI"
-              active={pathname === "/protected/tutordashboard/quiz-with-ai"}
+              active={pathname === "/dashboard/tutordashboard/quiz-with-ai"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/protected/tutordashboard/community" && "bg-purple-200"
+              pathname === "/dashboard/tutordashboard/community" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/protected/tutordashboard/community"
+              href="/dashboard/tutordashboard/community"
               icon={Users}
               label="Community"
-              active={pathname === "/protected/tutordashboard/community"}
+              active={pathname === "/dashboard/tutordashboard/community"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/protected/tutordashboard/certificates" && "bg-purple-200"
+              pathname === "/dashboard/tutordashboard/certificates" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/protected/tutordashboard/certificates"
+              href="/dashboard/tutordashboard/certificates"
               icon={Award}
               label="Certificates & Badges"
-              active={pathname === "/protected/tutordashboard/certificates"}
+              active={pathname === "/dashboard/tutordashboard/certificates"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/protected/tutordashboard/settings" && "bg-purple-200"
+              pathname === "/dashboard/tutordashboard/settings" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/protected/tutordashboard/settings"
+              href="/dashboard/tutordashboard/settings"
               icon={Settings}
               label="Settings"
-              active={pathname === "/protected/tutordashboard/settings"}
+              active={pathname === "/dashboard/tutordashboard/settings"}
             />
           </div>
         </div>
@@ -189,14 +189,19 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="flex h-screen bg-background">
-      <div
-        className={cn(
-          "fixed inset-y-0 z-50 flex w-72 flex-col transition-all duration-300 ease-in-out lg:relative",
-          sidebarOpen ? "left-0" : "-left-72"
-        )}
-      >
-        <Sidebar />
-      </div>
+      {/* Sidebar */}
+      {sidebarOpen && (
+        <div
+          className={cn(
+            "fixed inset-y-0 z-50 flex w-72 flex-col lg:relative transition-opacity duration-300 ease-in-out",
+            sidebarOpen ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <Sidebar />
+        </div>
+      )}
+
+      {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         <header className="sticky top-0 z-40 shadow-md bg-background w-full">
           <div className="flex h-16 items-center justify-between px-4">
@@ -232,7 +237,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
           </div>
         </header>
-        <main className="flex-1 overflow-auto bg-muted/20 p-4 lg:p-6">
+        <main className="flex-1 overflow-auto bg-muted/20 p-4 lg:p-6 w-full">
           {children}
         </main>
       </div>
