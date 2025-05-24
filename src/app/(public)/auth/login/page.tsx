@@ -5,21 +5,31 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
+import { login } from "@/store/features/authSlice";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   password: z.string().min(1, "Password is required"),
-  rememberMe: z.boolean().optional(),
+  // rememberMe: z.boolean().optional(),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -30,14 +40,42 @@ export default function Login() {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
+      // rememberMe: false,
     },
   });
 
   const onSubmit = (data: LoginFormValues) => {
     console.log(data);
-    router.push("/dashboard");
+    loginWithGmail(data);
+    // router.push("/dashboard");
   };
+
+  const loginWithGmail = async (data: LoginFormValues) => {
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, data);
+      
+      console.log(res.data);
+      dispatch(login(res.data.data));
+
+
+      if (res.status === 200) {
+        toast.success("Login successful");
+        setIsLoading(false);
+        setIsError(false)
+        router.push("/dashboard/tutor");
+      } else {
+        toast.error("Invalid credentials");
+        setIsError(true); 
+        setIsLoading(false);
+        setError(res.data.message);
+      }
+    } catch (error:any) {
+      setError(error?.message);
+      toast.error("Something went wrong");
+    }
+  }
 
   return (
     <motion.div
@@ -135,7 +173,7 @@ export default function Login() {
             id="rememberMe"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-            {...register("rememberMe")}
+            // {...register("rememberMe")}
           />
           <label htmlFor="rememberMe" className="text-sm text-gray-600">
             Remember me
@@ -144,9 +182,10 @@ export default function Login() {
 
         <button
           type="submit"
-          className="w-full py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+
+          className="w-full cursor-pointer py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789cc] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
         >
-          Login
+          {isLoading ? "Loading..." : "Login"}
         </button>
       </form>
 

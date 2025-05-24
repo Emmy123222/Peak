@@ -32,11 +32,12 @@ export const registerUser = (data: SignupData) => async (dispatch: AppDispatch):
     // Clean data before sending
     const { confirmPassword, acceptTerms, ...apiData } = data;
     
+    // console.log(apiData)
     try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
         // process.env.NEXT_PUBLIC_API_URL
-        const res = await fetch(`http://13.62.19.78:3000/api/v1/auth/register`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,12 +46,15 @@ export const registerUser = (data: SignupData) => async (dispatch: AppDispatch):
             signal: controller.signal,
         });
 
+        // console.log(res)
+
         clearTimeout(timeoutId);
 
         const result = await res.json();
-
+       
         if (!res.ok) {
             // Handle different error types
+
             if (res.status === 422 && result.errors) {
                 return {
                     success: false,
@@ -63,14 +67,19 @@ export const registerUser = (data: SignupData) => async (dispatch: AppDispatch):
                 message: result.message || `Registration failed with status ${res.status}`,
             };
         }
+    
+        
+        // console.log(result)
+        // console.log(result?.user)
+
 
         // Dispatch login if registration succeeds
-        dispatch(login(result.data));
+        // dispatch(login(result.user));
         
         return {
             success: true,
-            message: result.message || "1 successful",
-            data: result.data
+            message: result?.message || "1 successful",
+            data: result?.user
         };
 
     } catch (error: any) {
@@ -90,5 +99,61 @@ export const registerUser = (data: SignupData) => async (dispatch: AppDispatch):
     } finally {
         // Stop loading state regardless of outcome
         dispatch(stopLoading('register'));
+    }
+};
+
+export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch): Promise<ApiResponse> => {
+    // Start loading state
+    dispatch(startLoading('login'));
+    
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+            signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        const result = await res.json();
+
+        if (!res.ok) {
+            return {
+                success: false,
+                message: result.message || `Login failed with status ${res.status}`,
+            };
+        }
+
+        // Dispatch login if registration succeeds
+        dispatch(login(result));
+        
+        return {
+            success: true,
+            message: result.message || "Login successful",
+            data: result.user
+        };
+
+    } catch (error: any) {
+        let errorMessage = "Network error occurred";
+        
+        if (error.name === 'AbortError') {
+            errorMessage = "Request timed out";
+        } else if (error instanceof SyntaxError) {
+            errorMessage = "Invalid server response";
+        }
+
+        console.error('Login error:', error);
+        return {
+            success: false,
+            message: errorMessage,
+        };
+    } finally {
+        // Stop loading state regardless of outcome
+        dispatch(stopLoading('login'));
     }
 };

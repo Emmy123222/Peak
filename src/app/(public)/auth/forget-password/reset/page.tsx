@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Eye, EyeOff, Lock } from "lucide-react";
+import { Clock, Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Spinner from "@/components/ui/spinner";
 
 interface ResetPasswordFormProps {
   onSubmit: (password: string) => void;
@@ -12,11 +16,19 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+    const router = useRouter();
+  
   const [errors, setErrors] = useState({
+    email: "",
+    otp: "",
     password: "",
     confirmPassword: "",
   });
@@ -40,12 +52,49 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
     const confirmPasswordError = validateConfirmPassword(confirmPassword);
 
     setErrors({
+      email: "",
+      otp: "",
       password: passwordError,
       confirmPassword: confirmPasswordError,
     });
 
     if (!passwordError && !confirmPasswordError) {
-      onSubmit(password);
+      // onSubmit(password);
+      resetPassword();
+    }
+  };
+
+  const resetPassword = async () => {
+
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      console.log( {email, otp, newPassword:password})
+      console.log(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`)
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`, {email, otp, newPassword: password});
+    
+      if (response) {
+        console.log("Password reset successful");
+        setIsLoading(false);
+        setIsError(false);
+        toast.success("Password reset successful");
+        router.push("/auth/login");
+      } else {
+        console.error("Password reset failed");
+        setIsLoading(false);
+        setIsError(true);
+        toast.error("Password reset failed");
+      }
+    } catch (error:any) {
+    let errorMessage = error?.response?.data?.message;
+      setErrors((prev) => ({
+        ...prev,
+        password: errorMessage || "Password reset failed"
+      }))
+      console.error("Error resetting password:", error);
+      setIsLoading(false);
+      setIsError(true);
+      toast.error(errorMessage|| "Error resetting password");
     }
   };
 
@@ -65,6 +114,69 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Email
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+              <Mail className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              id="email"
+              type={"text"}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+
+              }}
+
+              className={`w-full pl-10 pr-12 py-3 border rounded-md focus:outline-none focus:ring-2 ${errors.email
+                  ? "border-red-300 focus:ring-red-200"
+                  : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
+                }`}
+            />
+
+          </div>
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+          )}
+        </div>
+
+        <div>
+          <label
+            htmlFor="otp"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            OTP
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+              <Clock className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              id="otp"
+              type={"text"}
+              value={otp}
+              onChange={(e) => {
+                setOtp(e.target.value);
+
+              }}
+
+              className={`w-full pl-10 pr-12 py-3 border rounded-md focus:outline-none focus:ring-2 ${errors.otp
+                  ? "border-red-300 focus:ring-red-200"
+                  : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
+                }`}
+            />
+
+          </div>
+          {errors.otp && (
+            <p className="mt-1 text-sm text-red-500">{errors.otp}</p>
+          )}
+        </div>
         <div>
           <label
             htmlFor="password"
@@ -104,11 +216,10 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
                   password: validatePassword(password),
                 });
               }}
-              className={`w-full pl-10 pr-12 py-3 border rounded-md focus:outline-none focus:ring-2 ${
-                errors.password
+              className={`w-full pl-10 pr-12 py-3 border rounded-md focus:outline-none focus:ring-2 ${errors.password
                   ? "border-red-300 focus:ring-red-200"
                   : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-              }`}
+                }`}
             />
             <button
               type="button"
@@ -157,11 +268,10 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
                   confirmPassword: validateConfirmPassword(confirmPassword),
                 });
               }}
-              className={`w-full pl-10 pr-12 py-3 border rounded-md focus:outline-none focus:ring-2 ${
-                errors.confirmPassword
+              className={`w-full pl-10 pr-12 py-3 border rounded-md focus:outline-none focus:ring-2 ${errors.confirmPassword
                   ? "border-red-300 focus:ring-red-200"
                   : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-              }`}
+                }`}
             />
             <button
               type="button"
@@ -184,9 +294,14 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
 
         <button
           type="submit"
-          className="w-full py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          disabled={isLoading}
+          className="w-full cursor-pointer py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
         >
-          Reset Password
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            "Reset Password"
+          )}
         </button>
 
         <button
@@ -201,4 +316,4 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   );
 };
 
-export default ResetPasswordForm;
+export default ResetPasswordForm

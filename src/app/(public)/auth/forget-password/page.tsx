@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Mail, ArrowLeft } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import EmailVerificationModal from "@/components/auth/otp-verification";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email("Please enter a valid email"),
@@ -19,6 +20,9 @@ type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 export default function ForgotPassword() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string>();
 
   const {
     register,
@@ -32,14 +36,48 @@ export default function ForgotPassword() {
   });
 
   const onSubmit = (data: ForgotPasswordFormValues) => {
-    console.log(data);
-    console.log(data);
+    // console.log(data);
+    sendOTPRequest(data.email);
     setShowVerificationModal(true);
   };
   const handleVerificationSuccess = () => {
     setShowVerificationModal(false);
-    router.push("/auth/forget-password/OTP");
+
+    // router.push("/auth/forget-password/otp");
   };
+
+  const sendOTPRequest = async (email: string) => {
+    setIsLoading(true);
+    setIsError(false);
+    
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/request-password-reset`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      console.log(response)
+      if (response.ok) {
+        toast.success("OTP sent successfully");
+        setIsLoading(false);
+        setIsError(false);
+    router.push("/auth/forget-password/reset");
+
+      } else {
+        toast.error("Failed to send OTP");
+        setIsError(true);
+        setError("Failed to send OTP");
+      }
+    } catch (error:any) {
+      toast.error("Failed to send OTP");
+      console.error("Error sending OTP:", error);
+      setIsError(true);
+      setError(error?.message);
+    }
+  }
+
   const router = useRouter();
 
   return (
@@ -99,9 +137,9 @@ export default function ForgotPassword() {
 
               <button
                 type="submit"
-                className="w-full py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                className="w-full cursor-pointer py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
               >
-                Reset password
+                {isLoading ? "Sending OTP..." : "Reset password"}
               </button>
               <div
                 className="text-purple-700 font-medium hover:text-[#640789] w-full py-2.5 px-4 border border-[#640789] rounded-full bg-white flex justify-center items-center"
@@ -147,7 +185,7 @@ export default function ForgotPassword() {
 
       {showVerificationModal && (
         <EmailVerificationModal
-          email="olivia@untitledui.com"
+          email="opeterro007@gmail.com"
           onClose={() => setShowVerificationModal(false)}
           onVerificationSuccess={handleVerificationSuccess}
         />

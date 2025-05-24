@@ -5,16 +5,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, User, Mail, Lock, BookOpen } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import EmailVerificationModal from "@/components/auth/email-verification";
+import { registerUser } from "@/actions/authActions";
+import { AppDispatch } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setEmail } from "@/store/features/authSlice";
+import { handleRegistration } from "@/lib/helper/handleRegisterUI";
+
 
 const signUpSchema = z
   .object({
-    fullName: z.string().min(2, "Name is required"),
+    name: z.string().min(2, "Name is required"),
     age: z.string().min(1, "Age range is required"),
-    gradeLevel: z.string().min(1, "Grade level is required"),
+    grade: z.string().min(1, "Grade level is required"),
     email: z.string().email("Please enter a valid email"),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
@@ -34,6 +40,11 @@ export default function StudentSignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     register,
@@ -42,9 +53,9 @@ export default function StudentSignUp() {
   } = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      fullName: "",
+      name: "",
       age: "",
-      gradeLevel: "",
+      grade: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -52,14 +63,18 @@ export default function StudentSignUp() {
     },
   });
 
+
+//  registerAndLogin
+  
+
   const onSubmit = (data: SignUpFormValues) => {
-    console.log(data);
-    setShowVerificationModal(true);
+    handleRegistration({data, dispatch, router, setIsError, setIsLoading, setError, setShowVerificationModal, setEmail, registerUser, role: "STUDENT"});
   };
 
   const handleVerificationSuccess = () => {
     setShowVerificationModal(false);
-    router.push("/signup/auth/student/preference");
+
+    router.push("/auth/signup/otp");
   };
 
   return (
@@ -86,19 +101,19 @@ export default function StudentSignUp() {
                 <User className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                id="fullName"
+                id="name"
                 type="text"
                 placeholder="Enter full name"
                 className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.fullName
+                  errors.name
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("fullName")}
+                {...register("name")}
               />
             </div>
-            {errors.fullName && (
-              <p className="text-sm text-red-500">{errors.fullName.message}</p>
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
             )}
           </div>
 
@@ -147,7 +162,7 @@ export default function StudentSignUp() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="gradeLevel" className="text-sm font-medium">
+            <label htmlFor="grade" className="text-sm font-medium">
               Grade level
             </label>
             <div className="relative">
@@ -155,13 +170,13 @@ export default function StudentSignUp() {
                 <BookOpen className="h-5 w-5 text-gray-400" />
               </div>
               <select
-                id="gradeLevel"
+                id="grade"
                 className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.gradeLevel
+                  errors.grade
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("gradeLevel")}
+                {...register("grade")}
               >
                 <option value="">Select your grade level</option>
                 <option value="grade1-3">Grade 1-3</option>
@@ -185,9 +200,9 @@ export default function StudentSignUp() {
                 </svg>
               </div>
             </div>
-            {errors.gradeLevel && (
+            {errors.grade && (
               <p className="text-sm text-red-500">
-                {errors.gradeLevel.message}
+                {errors.grade.message}
               </p>
             )}
           </div>
@@ -317,9 +332,10 @@ export default function StudentSignUp() {
 
           <button
             type="submit"
-            className="w-full py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            disabled={isLoading}
+            className="w-full py-3 px-4 cursor-pointer bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789c7] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
-            Continue
+            {isLoading? "Loading..." :  "Continue"}
           </button>
         </form>
 
@@ -335,10 +351,15 @@ export default function StudentSignUp() {
           </p>
         </div>
       </motion.div>
+      {isError && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
+          <span className="block sm:inline">{error}</span>
+        </div>
+      )}
 
       {showVerificationModal && (
         <EmailVerificationModal
-          email="olivia@untitledui.com"
+          email={`https://mail.google.com`}
           onClose={() => setShowVerificationModal(false)}
           onVerificationSuccess={handleVerificationSuccess}
         />
@@ -346,3 +367,4 @@ export default function StudentSignUp() {
     </>
   );
 }
+

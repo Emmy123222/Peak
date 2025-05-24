@@ -1,4 +1,4 @@
-// src/app/(protected)/dashboard/tutordashboard/layout.tsx
+// src/app/(protected)/dashboard/tutor/layout.tsx
 "use client";
 
 import { useState } from "react";
@@ -85,92 +85,92 @@ function Sidebar() {
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard" && "bg-purple-200"
+              pathname === "/dashboard/tutor" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard"
+              href="/dashboard/tutor"
               icon={LayoutDashboard}
               label="Dashboard"
-              active={pathname === "/dashboard/tutordashboard"}
+              active={pathname === "/dashboard/tutor"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard/exams-subjects" && "bg-purple-200"
+              pathname === "/dashboard/tutor/exams-subjects" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard/exams-subjects"
+              href="/dashboard/tutor/exams-subjects"
               icon={Book}
               label="Exams & Subjects"
-              active={pathname === "/dashboard/tutordashboard/exams-subjects"}
+              active={pathname === "/dashboard/tutor/exams-subjects"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard/my-classes" && "bg-purple-200"
+              pathname === "/dashboard/tutor/my-classes" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard/my-classes"
+              href="/dashboard/tutor/my-classes"
               icon={GraduationCap}
               label="My Classes"
-              active={pathname === "/dashboard/tutordashboard/my-classes"}
+              active={pathname === "/dashboard/tutor/my-classes"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard/quiz-with-ai" && "bg-purple-200"
+              pathname === "/dashboard/tutor/quiz-with-ai" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard/quiz-with-ai"
+              href="/dashboard/tutor/quiz-with-ai"
               icon={BrainCircuit}
               label="Quiz with AI"
-              active={pathname === "/dashboard/tutordashboard/quiz-with-ai"}
+              active={pathname === "/dashboard/tutor/quiz-with-ai"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard/community" && "bg-purple-200"
+              pathname === "/dashboard/tutor/community" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard/community"
+              href="/dashboard/tutor/community"
               icon={Users}
               label="Community"
-              active={pathname === "/dashboard/tutordashboard/community"}
+              active={pathname === "/dashboard/tutor/community"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard/certificates" && "bg-purple-200"
+              pathname === "/dashboard/tutor/certificates" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard/certificates"
+              href="/dashboard/tutor/certificates"
               icon={Award}
               label="Certificates & Badges"
-              active={pathname === "/dashboard/tutordashboard/certificates"}
+              active={pathname === "/dashboard/tutor/certificates"}
             />
           </div>
           <div
             className={cn(
               "rounded",
-              pathname === "/dashboard/tutordashboard/settings" && "bg-purple-200"
+              pathname === "/dashboard/tutor/settings" && "bg-purple-200"
             )}
           >
             <SidebarLink
-              href="/dashboard/tutordashboard/settings"
+              href="/dashboard/tutor/settings"
               icon={Settings}
               label="Settings"
-              active={pathname === "/dashboard/tutordashboard/settings"}
+              active={pathname === "/dashboard/tutor/settings"}
             />
           </div>
         </div>

@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, X } from "lucide-react";
-
+import { AppDispatch } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 interface EmailVerificationModalProps {
   email: string;
   onClose: () => void;
@@ -17,10 +18,14 @@ export default function EmailVerificationModal({
 }: EmailVerificationModalProps) {
   const [isOpen, setIsOpen] = useState(true);
 
+  const auth = useSelector((state: any) => state.auth);
+  console.log(auth?.email)
+
   // Simulate verification check
   const handleVerification = () => {
     // In a real app, this would verify the code
     onVerificationSuccess();
+
   };
 
   // Handle click outside to close

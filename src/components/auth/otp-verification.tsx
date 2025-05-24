@@ -88,7 +88,7 @@ export default function OTPVerificationModal({
 
               <h2 className="text-xl font-semibold">OTP Verification</h2>
               <p className="text-gray-600 font-montserrat font-normal text-base leading-6 tracking-normal text-center align-middle">
-                We have sent you a 4-digit, kindly
+                We have sent you a 6-digit, kindly
               </p>
               <p className="text-gray-600 font-montserrat font-normal text-base leading-6 tracking-normal text-center align-middle">
                 check your email to verify.

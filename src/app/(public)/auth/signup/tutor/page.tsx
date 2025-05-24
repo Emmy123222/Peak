@@ -19,12 +19,18 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import EmailVerificationModal from "@/components/auth/email-verification";
+import { AppDispatch } from "@/store";
+import { useDispatch } from "react-redux";
+import { registerUser } from "@/actions/authActions";
+import { setEmail } from "@/store/features/authSlice";
+import { handleRegistration } from "@/lib/helper/handleRegisterUI";
+import Spinner from "@/components/ui/spinner";
 
 const signUpSchema = z
   .object({
-    fullName: z.string().min(2, "Name is required"),
+    name: z.string().min(2, "Name is required"),
     email: z.string().email("Please enter a valid email"),
-    phoneNumber: z.string().min(10, "Please enter a valid phone number"),
+    phone: z.string().min(10, "Please enter a valid phone number"),
     // qualification: z.string().min(2, "Qualification is required"),
     // experience: z.string().min(1, "Years of experience is required"),
     // subjects: z.string().min(1, "Subject is required"),
@@ -46,6 +52,10 @@ export default function TutorSignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const {
     register,
@@ -54,25 +64,35 @@ export default function TutorSignUp() {
   } = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
-      fullName: "",
+      name: "",
       email: "",
-      phoneNumber: "",
-
+      phone: "",
       password: "",
       confirmPassword: "",
       acceptTerms: false,
     },
   });
 
-  const onSubmit = (data: SignUpFormValues) => {
-    console.log(data);
-    setShowVerificationModal(true);
-  };
+ 
 
-  const handleVerificationSuccess = () => {
-    setShowVerificationModal(false);
-    router.push("/dashboard/tutordashboard");
-  };
+
+
+
+
+    
+  
+    const onSubmit = (data: SignUpFormValues) => {
+      console.log(data)
+
+          handleRegistration({data: {...data, grade: "grade1-3", age: "5-8"}, dispatch, router, setIsError, setIsLoading, setError, setShowVerificationModal, setEmail, registerUser, role: "TEACHER"});
+      // setShowVerificationModal(true);
+    };
+  
+    const handleVerificationSuccess = () => {
+      setShowVerificationModal(false);
+      
+      router.push("/auth/signup/otp");
+    };
 
   return (
     <>
@@ -90,7 +110,7 @@ export default function TutorSignUp() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <label htmlFor="fullName" className="text-sm font-medium">
+            <label htmlFor="name" className="text-sm font-medium">
               Full Name
             </label>
             <div className="relative">
@@ -98,19 +118,19 @@ export default function TutorSignUp() {
                 <User className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                id="fullName"
+                id="name"
                 type="text"
                 placeholder="Enter full name"
                 className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.fullName
+                  errors.name
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("fullName")}
+                {...register("name")}
               />
             </div>
-            {errors.fullName && (
-              <p className="text-sm text-red-500">{errors.fullName.message}</p>
+            {errors.name && (
+              <p className="text-sm text-red-500">{errors.name.message}</p>
             )}
           </div>
 
@@ -140,7 +160,7 @@ export default function TutorSignUp() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="phoneNumber" className="text-sm font-medium">
+            <label htmlFor="phone" className="text-sm font-medium">
               Phone number
             </label>
             <div className="relative">
@@ -148,161 +168,24 @@ export default function TutorSignUp() {
                 <Phone className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                id="phoneNumber"
+                id="phone"
                 type="tel"
                 placeholder="+234 00-0000-0000"
                 className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                  errors.phoneNumber
+                  errors.phone
                     ? "border-red-300 focus:ring-red-200"
                     : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
                 }`}
-                {...register("phoneNumber")}
+                {...register("phone")}
               />
             </div>
-            {errors.phoneNumber && (
+            {errors.phone && (
               <p className="text-sm text-red-500">
-                {errors.phoneNumber.message}
+                {errors.phone.message}
               </p>
             )}
           </div>
 
-          {/* <div className="space-y-2">
-            <label htmlFor="qualification" className="text-sm font-medium">
-              Highest Qualification
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <GraduationCap className="h-5 w-5 text-gray-400" />
-              </div>
-              <select
-                id="qualification"
-                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.qualification
-                    ? "border-red-300 focus:ring-red-200"
-                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-                }`}
-                {...register("qualification")}
-              >
-                <option value="">Select qualification</option>
-                <option value="bachelors">Bachelor's Degree</option>
-                <option value="masters">Master's Degree</option>
-                <option value="phd">Ph.D.</option>
-                <option value="other">Other Professional Certification</option>
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-            {errors.qualification && (
-              <p className="text-sm text-red-500">
-                {errors.qualification.message}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="experience" className="text-sm font-medium">
-              Years of Experience
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <Briefcase className="h-5 w-5 text-gray-400" />
-              </div>
-              <select
-                id="experience"
-                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.experience
-                    ? "border-red-300 focus:ring-red-200"
-                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-                }`}
-                {...register("experience")}
-              >
-                <option value="">Select years of experience</option>
-                <option value="0-2">0-2 years</option>
-                <option value="3-5">3-5 years</option>
-                <option value="6-10">6-10 years</option>
-                <option value="10+">10+ years</option>
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-            {errors.experience && (
-              <p className="text-sm text-red-500">
-                {errors.experience.message}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="subjects" className="text-sm font-medium">
-              Subjects You Can Teach
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <BookOpen className="h-5 w-5 text-gray-400" />
-              </div>
-              <select
-                id="subjects"
-                className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 appearance-none bg-white ${
-                  errors.subjects
-                    ? "border-red-300 focus:ring-red-200"
-                    : "border-gray-300 focus:ring-purple-200 focus:border-purple-400"
-                }`}
-                {...register("subjects")}
-              >
-                <option value="">Select primary subject</option>
-                <option value="mathematics">Mathematics</option>
-                <option value="english">English Language</option>
-                <option value="physics">Physics</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="biology">Biology</option>
-                <option value="economics">Economics</option>
-                <option value="history">History</option>
-                <option value="geography">Geography</option>
-                <option value="computer-science">Computer Science</option>
-              </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-            {errors.subjects && (
-              <p className="text-sm text-red-500">{errors.subjects.message}</p>
-            )}
-          </div> */}
 
           <div className="space-y-2">
             <label htmlFor="password" className="text-sm font-medium">
@@ -404,9 +287,10 @@ export default function TutorSignUp() {
 
           <button
             type="submit"
-            className="w-full py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            disabled={isLoading}
+            className="w-full cursor-pointer py-3 px-4 bg-[#640789] text-white font-medium rounded-full hover:bg-[#640789c7] transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
-            Sign up
+            {`${isLoading ? "Signing up..."  : "Sign Up"}`}
           </button>
         </form>
 
