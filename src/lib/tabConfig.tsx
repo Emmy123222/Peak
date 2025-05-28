@@ -2,7 +2,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "@/lib/motion-wrapper";
-import { ExamCard } from "../../type/examCard";
+import { ExamCard } from "../../type/ExamCard";
 
 export const tabConfig = [
   {
