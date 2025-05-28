@@ -9,12 +9,12 @@ import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import Link from "next/link";
 import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
-import { ExamCard } from "../../../../../../type/examCard";
+import { ExamCard } from "../../../../../../type/ExamCard";
 
 export default function ExamPrepSection() {
   const pathname = usePathname();
   const showAll = pathname === "/dashboard/tutordashboard/exams-subjects";
-  const displayedCards = showAll ? examCards : examCards.slice(0, 3);
+  const displayedCards = showAll ? examCards : examCards.slice(0, 7);
   const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null);
 
   const handleButtonClick = (card: ExamCard) => {
