@@ -2,13 +2,9 @@
 import React from "react";
 
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const UnlockSection = () => {
-  const router = useRouter();
-  const handleSignUpClick = () => {
-    router.push("/auth"); // Update this path if different
-  };
 
   return (
     <section className="w-full py-12 bg-[#FCF4FF]">
@@ -111,12 +107,12 @@ const UnlockSection = () => {
               Join other parents who've boosted their child's grades by 35%+
             </p>
 
-            <Button
-              onClick={handleSignUpClick}
+            <Link
+              href="/auth"
               className="rounded-full px-8 py-2 h-auto text-base font-medium bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
             >
               Sign up as a parent
-            </Button>
+            </Link>
           </div>
         </div>
 
@@ -218,12 +214,13 @@ const UnlockSection = () => {
             </p>
 
             <div className="flex  mb-6">
-              <Button
-                onClick={handleSignUpClick}
+              <Link
+              href={"/auth"}
+                // onClick={handleSignUpClick}
                 className="rounded-full px-8 py-2 h-auto text-base font-medium bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50"
               >
                 Sign up as a parent
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

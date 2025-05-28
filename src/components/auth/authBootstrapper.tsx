@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAuth, logout } from "@/store/features/authSlice";
 import { useRouter } from "next/navigation";
 const AuthBootstrapper = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-
+    const auth = useSelector((state: any) => state.auth);
 
     useEffect(() => {
         const token = sessionStorage.getItem('pc_token');
@@ -34,7 +34,7 @@ const AuthBootstrapper = () => {
 
         console.log("token", token);
 
-    }, [dispatch, router])
+    }, [dispatch, router, auth])
 
     return null;
 };
