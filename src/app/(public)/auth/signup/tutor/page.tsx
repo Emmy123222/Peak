@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import EmailVerificationModal from "@/components/auth/email-verification";
 import { AppDispatch } from "@/store";
 import { useDispatch } from "react-redux";
-import { registerUser } from "@/actions/authActions";
+import { registerUser } from "@/store/actions/authActions";
 import { setEmail } from "@/store/features/authSlice";
 import { handleRegistration } from "@/lib/helper/handleRegisterUI";
 import Spinner from "@/components/ui/spinner";

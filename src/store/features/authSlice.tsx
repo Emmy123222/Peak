@@ -3,7 +3,7 @@ import {createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
     token: string | null;
-    role: 'tutor' | 'student' | 'parent'| null;
+    role: 'TUTOR' | 'STUDENT' | 'PARENT' | null;
     isAuthenticated: boolean;
     email: string
 }
@@ -12,7 +12,7 @@ const initialState: AuthState ={
     token: null,
     role: null,
     isAuthenticated: false,
-    email: (localStorage.getItem('state-email')) || ''
+    email: typeof window !== 'undefined' ? (localStorage.getItem('state-email')) || '' : "",
 };
 
 const authSlice = createSlice({
@@ -25,15 +25,34 @@ const authSlice = createSlice({
          * @param {string} action.payload.token - auth token
          * @param {string} action.payload.role - role of user
          */
+
+        setAuth: (state: AuthState, action: PayloadAction<{access_token: string, user: any}>) => {
+            state.token = action.payload.access_token;
+            state.role = action.payload.user.role;
+            // state.isAuthenticated = true;
+            sessionStorage.setItem('pc_token', action.payload.access_token);
+
+        },
+        clearAuth: (state: AuthState) => {
+            state.token = null;
+            state.role = null;
+            state.isAuthenticated = false;
+            sessionStorage.removeItem('pc_token');
+        },
+
+
         login: (state: AuthState, action: PayloadAction <{access_token: string, user: any}>) => {
             state.token = action.payload.access_token;
             state.role = action.payload.user.role;
             state.isAuthenticated = true;
+
+            sessionStorage.setItem('pc_token', action.payload.access_token);
         },
         logout: (state: AuthState) => {
             state.token = null;
             state.role = null;
             state.isAuthenticated = false;
+            sessionStorage.removeItem('pc_token');
         },
         setRole: (state: AuthState, action: PayloadAction<AuthState['role']>) => {
             state.role = action.payload;
@@ -45,5 +64,5 @@ const authSlice = createSlice({
     }
 })
 
-export const {login, logout, setRole, setEmail} = authSlice.actions;
+export const {login, logout, setRole, setEmail, setAuth, clearAuth} = authSlice.actions;
 export default authSlice.reducer;

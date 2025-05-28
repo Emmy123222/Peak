@@ -2,7 +2,7 @@
 'use client';
 
 import { AppDispatch } from "@/store";
-import { login } from "@/store/features/authSlice";
+import { login, setAuth } from "@/store/features/authSlice";
 import { startLoading, stopLoading } from "@/store/features/uiSlice"; // Add this to your store
 
 interface SignupData {
@@ -102,6 +102,7 @@ export const registerUser = (data: SignupData) => async (dispatch: AppDispatch):
     }
 };
 
+
 export const loginUser = (email: string, password: string) => async (dispatch: AppDispatch): Promise<ApiResponse> => {
     // Start loading state
     dispatch(startLoading('login'));
@@ -131,7 +132,10 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
 
         // Dispatch login if registration succeeds
         dispatch(login(result));
-        
+
+        sessionStorage.setItem("refresh_token", result.refresh_token);
+
+        dispatch(setAuth(result))
         return {
             success: true,
             message: result.message || "Login successful",

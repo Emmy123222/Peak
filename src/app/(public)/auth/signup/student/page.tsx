@@ -9,7 +9,7 @@ import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import EmailVerificationModal from "@/components/auth/email-verification";
-import { registerUser } from "@/actions/authActions";
+import { registerUser } from "@/store/actions/authActions";
 import { AppDispatch } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail } from "@/store/features/authSlice";

@@ -45,7 +45,7 @@ export default function Login() {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log(data);
+    // console.log(data);
     loginWithGmail(data);
     // router.push("/dashboard");
   };
@@ -56,7 +56,6 @@ export default function Login() {
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, data);
       
-      console.log(res.data);
       dispatch(login(res.data.data));
 
 
@@ -64,7 +63,7 @@ export default function Login() {
         toast.success("Login successful");
         setIsLoading(false);
         setIsError(false)
-        router.push("/dashboard/tutor");
+        // router.push("/dashboard/tutor");
       } else {
         toast.error("Invalid credentials");
         setIsError(true); 
