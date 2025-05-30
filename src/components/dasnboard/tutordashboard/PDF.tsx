@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import QuestionView from "./QuestionView"; // Import the QuestionView component
+import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard"; // Import VideoDashboard
 
 interface PDFProps {
   examName: string;
@@ -12,7 +12,8 @@ interface PDFProps {
 
 export default function PDF({ examName, onPastQuestionClick }: PDFProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedYear, setSelectedYear] = useState<string | null>(null); // Track selected year
+  const [showVideoDashboard, setShowVideoDashboard] = useState(false); // State to toggle VideoDashboard
+  const [pastQuestionTitle, setPastQuestionTitle] = useState<string>(""); // Track past question title
 
   const pdfResources = {
     title: "PDF solution",
@@ -27,14 +28,17 @@ export default function PDF({ examName, onPastQuestionClick }: PDFProps) {
     })),
   };
 
-  // Sample subject data (expand as needed)
-  const subjectData = {
-    tutor: { name: "Peter Mathew", image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg", role: "Tutor" },
-    questions: [
-      { number: 1, text: "The force F acting on the wings of an aircraft moving through the air of velocity, v and density, ρ, is given by the equation F = kρv²A, where A is a dimensionless constant and A is the surface area of the wings of the aircraft. Use dimensional analysis to determine the values of k and c." },
-      { number: 2, text: "Define strain energy.", subparts: ["a. Define strain energy."] },
-      { number: 3, text: "Write an expression for the energy stored E, in a stretched wire of original length l, cross-sectional area A, extension x, and Young's modulus Y, of the material of the wire." },
-    ],
+  const handlePastQuestionClick = (title: string) => {
+    console.log("PDF past question clicked:", title); // Debug log
+    if (onPastQuestionClick) onPastQuestionClick(title); // Notify parent
+    setPastQuestionTitle(title); // Set the past question title
+    setShowVideoDashboard(true); // Show VideoDashboard
+  };
+
+  const handleBackToResources = () => {
+    console.log("Back to resources from VideoDashboard in PDF"); // Debug log
+    setShowVideoDashboard(false); // Return to PDF view
+    setPastQuestionTitle(""); // Reset past question title
   };
 
   return (
@@ -67,7 +71,7 @@ export default function PDF({ examName, onPastQuestionClick }: PDFProps) {
           </div>
         </div>
       </div>
-      {isExpanded && !selectedYear && (
+      {isExpanded && !showVideoDashboard && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {pdfResources.items.map((item, index) => (
             <a
@@ -75,8 +79,7 @@ export default function PDF({ examName, onPastQuestionClick }: PDFProps) {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (onPastQuestionClick) onPastQuestionClick(item.title);
-                setSelectedYear(item.title); // Set the selected year to trigger QuestionView
+                handlePastQuestionClick(item.title); // Trigger VideoDashboard
               }}
               className="flex items-center p-3 rounded-xl border border-[#E4E4E7] hover:bg-gray-50 transition-colors cursor-pointer"
             >
@@ -90,12 +93,12 @@ export default function PDF({ examName, onPastQuestionClick }: PDFProps) {
           ))}
         </div>
       )}
-      {selectedYear && (
-        <QuestionView
-          examYear={selectedYear.replace(" Past questions", "")} // Extract year (e.g., "2024")
-          subject={examName}
-          tutor={subjectData.tutor}
-          questions={subjectData.questions}
+      {showVideoDashboard && (
+        <VideoDashboard
+          examName={examName}
+          pastQuestionTitle={pastQuestionTitle}
+          onBack={handleBackToResources}
+          onYearChange={(newTitle) => setPastQuestionTitle(newTitle)} // Update title on year change
         />
       )}
     </div>
