@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, Maximize2, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
+import { Play, Pause, Volume2, Maximize2, ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Link as LinkIcon } from 'lucide-react';
 import AnalyticsModal from './AnalyticsModal'; // Ensure this path is correct
+import Link from 'next/link';
 
 interface VideoDashboardProps {
   examName: string;
@@ -348,9 +349,11 @@ export default function VideoDashboard({
                 <p className="text-sm text-gray-600">Attempt practice questions</p>
               </div>
             </div>
-            <button className="px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700">
+            <Link
+            href="/dashboard/tutor/practise-question"
+            className="px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700">
               Attempt practice questions
-            </button>
+            </Link>
           </div>
         </div>
 
