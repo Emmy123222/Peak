@@ -72,14 +72,6 @@ export default function TutorSignUp() {
       acceptTerms: false,
     },
   });
-
- 
-
-
-
-
-
-    
   
     const onSubmit = (data: SignUpFormValues) => {
       console.log(data)
@@ -103,7 +95,7 @@ export default function TutorSignUp() {
         className="space-y-6"
       >
         <div className="space-y-2">
-          <h1 className="font-semibold text-[30px] leading-[38px] text-center font-[Montserrat]">
+          <h1 className="font-semibold text-[30px] leading-[38px] text-center font-montserrat">
             Sign Up as Tutor
           </h1>
         </div>
