@@ -19,11 +19,6 @@ const tutors = [
     subject: "Math, English",
   },
   {
-    name: "John Fiyin",
-    image: "/images/john2.png",
-    subject: "Math, English",
-  },
-  {
     name: "Emmanuel Odoh",
     image: "/images/emma.png",
     subject: "Maths, Physics",
@@ -37,6 +32,11 @@ const tutors = [
     name: "Mr. Samuel Obasi",
     image: "/images/sam.png",
     subject: "Math, Economics",
+  },
+  {
+    name: "John Fiyin",
+    image: "/images/john2.png",
+    subject: "Math, English",
   },
 ];
 

@@ -112,7 +112,7 @@ const WhatWeOffer = () => {
               </div>
 
               {/* Coding */}
-              {/* <div className="flex flex-col">
+              <div className="flex flex-col">
                 <div className="flex items-start mb-4 gap-3">
                   <img src="/images/What we offer/Coding.png" alt="" />
                   <h3 className="text-xl font-semibold">Coding</h3>
@@ -128,7 +128,7 @@ const WhatWeOffer = () => {
                     Coming soon
                   </span>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
