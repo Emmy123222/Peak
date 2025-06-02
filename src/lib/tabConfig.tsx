@@ -13,7 +13,7 @@ export const tabConfig = [
       displayedCards: ExamCard[],
       handleButtonClick: (card: ExamCard) => void = () => {}
     ) => (
-      <div className={displayedCards.length > 3 ? "flex flex-wrap gap-3" : "flex gap-8"}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {displayedCards.map((card, i) => (
           <motion.div
             key={card.id}
@@ -21,7 +21,7 @@ export const tabConfig = [
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: i * 0.1 }}
           >
-            <Card className="h-[283px] w-[300px] overflow-hidden rounded-2xl border border-[#E4E4E7] shadow-[0px_8px_20px_0px_rgba(152,_138,_173,_0.1)]">
+            <Card className="h-[320px] w-full overflow-hidden rounded-2xl border border-[#E4E4E7] shadow-[0px_8px_20px_0px_rgba(152,_138,_173,_0.1)] flex flex-col justify-between">
               <CardHeader className={`p-0 ${card.color}`}>
                 <div className="h-[120px] flex items-center justify-center">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center bg-white shadow-md">
@@ -29,13 +29,17 @@ export const tabConfig = [
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="p-4">
-                <CardTitle className="text-[14px] font-bold text-foreground">
-                  {card.title}
-                </CardTitle>
-                <p className="text-[13px] text-muted-foreground mt-1 leading-snug">
-                  {card.description}
-                </p>
+
+              <CardContent className="px-4 pb-2 flex-grow flex flex-col justify-between">
+                <div>
+                  <CardTitle className="text-[14px] font-bold text-foreground">
+                    {card.title}
+                  </CardTitle>
+                  <p className="text-[13px] text-muted-foreground mt-1 leading-snug line-clamp-2">
+                    {card.description}
+                  </p>
+                </div>
+
                 <div className="mt-4">
                   <div className="w-full h-1.5 bg-[#E4E4E7] rounded-full">
                     <div
@@ -48,11 +52,12 @@ export const tabConfig = [
                   </p>
                 </div>
               </CardContent>
+
               <CardFooter className="p-4 pt-0">
                 <Button
                   variant="outline"
                   size="sm"
-                  className={`w-full text-sm rounded-full font-semibold ${
+                  className={`w-fit text-sm rounded-full font-semibold p-4 ${
                     card.status === "continue"
                       ? "border-2 border-purple-600 text-purple-600"
                       : "border-2 border-[#D0D5DD] text-[#344054]"

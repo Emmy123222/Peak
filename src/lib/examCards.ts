@@ -15,6 +15,7 @@ export const examCards: ExamCard[] = [
       "15,000+ JAMB-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
   {
     id: "waec",
@@ -30,6 +31,7 @@ export const examCards: ExamCard[] = [
       "15,000+ WAEC-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
   {
     id: "neco",
@@ -45,6 +47,7 @@ export const examCards: ExamCard[] = [
       "15,000+ NECO-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
   {
     id: "gsse",
@@ -60,6 +63,7 @@ export const examCards: ExamCard[] = [
       "10,000+ GSSE-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
   {
     id: "ssce",
@@ -75,6 +79,7 @@ export const examCards: ExamCard[] = [
       "12,000+ SSCE-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
   {
     id: "bece",
@@ -90,6 +95,7 @@ export const examCards: ExamCard[] = [
       "8,000+ BECE-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
   {
     id: "utme",
@@ -104,5 +110,6 @@ export const examCards: ExamCard[] = [
       "15,000+ UTME-style questions",
       "Real-time leaderboard motivation",
     ],
+    className: " w-full"
   },
 ];

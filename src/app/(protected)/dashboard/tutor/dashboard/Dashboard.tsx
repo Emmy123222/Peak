@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WelcomeHeader } from "../Welcome/Welcomes";
 import { PerformanceSection } from "../Performance/Performance";
-import { WeeklyStreakTabs } from "../weekly/Weekly";
+import { WeeklyStreakSection } from "../weekly/Weekly";
 import { SubjectProgressTracker } from "../Subject/Subjects";
 import { PracticeQuestions } from "../practice/Practise";
 import { tabConfig } from "@/lib/tabConfig";
@@ -168,9 +168,9 @@ export function DashboardContent() {
   return (
     <div className="space-y-6">
       <WelcomeHeader />
-      <div className="grid gap-6 md:grid-cols-3">
-        <div className="md:col-span-2 shadow-md rounded-[26px] bg-white p-6">
-          <Tabs defaultValue="exam-prep" className="h-full">
+      <div className="grid gap-6 md:grid-cols-3 w-full">
+        <div className="md:col-span-2 shadow-md rounded-[26px] bg-white p-6 w-full">
+          <Tabs defaultValue="exam-prep" className="h-full w-full">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-foreground">Exam Prep</h3>
               <Link
@@ -196,13 +196,13 @@ export function DashboardContent() {
             ))}
           </Tabs>
         </div>
-        <div className="md:col-span-1">
+        <div className="md:col-span-1 w-full">
           <PerformanceSection />
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <WeeklyStreakTabs onViewAll={handleWeeklyViewAll} />
+          <WeeklyStreakSection onViewAll={handleWeeklyViewAll} />
           <PracticeQuestions />
         </div>
         <div>

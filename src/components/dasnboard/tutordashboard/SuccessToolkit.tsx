@@ -13,6 +13,7 @@ interface SuccessToolkitProps {
   features: string[];
   icon: string;
   color: string;
+  className?: string; // Add className prop to allow parent styling
 }
 
 export default function SuccessToolkit({
@@ -21,6 +22,7 @@ export default function SuccessToolkit({
   features,
   icon,
   color,
+  className,
 }: SuccessToolkitProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showVideoDashboard, setShowVideoDashboard] = useState(false); // State to toggle VideoDashboard
@@ -72,15 +74,20 @@ export default function SuccessToolkit({
     );
   }
 
+  function cn(...classes: (string | undefined | false | null)[]): string {
+    return classes.filter(Boolean).join(" ");
+  }
   return (
-    <div className="space-y-6">
-      <div className={`relative ${color} rounded-2xl h-40 flex items-center justify-center`}>
+    <div className={cn("space-y-6 flex flex-col h-full w-full", className)}>
+      <div
+        className={`relative ${color} rounded-2xl h-40 flex items-center justify-center flex-shrink-0`}
+      >
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-4xl">{icon}</span>
         </div>
       </div>
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="bg-gray-100 rounded-2xl p-1">
+      <Tabs defaultValue="overview" className="w-full flex-1 flex flex-col">
+        <TabsList className="bg-gray-100 rounded-2xl p-1 flex-shrink-0">
           <TabsTrigger value="overview" className="rounded-xl">
             Overview
           </TabsTrigger>
@@ -88,23 +95,33 @@ export default function SuccessToolkit({
             Resources
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="overview" className="mt-4">
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-foreground">{examName} Success Toolkit</h2>
+        <TabsContent
+          value="overview"
+          className="mt-4 flex-1 overflow-auto"
+        >
+          <div className="space-y-4 h-full">
+            <h2 className="text-xl font-semibold text-foreground">
+              {examName} Success Toolkit
+            </h2>
             <p className="text-sm text-muted-foreground">{description}</p>
             <h3 className="text-lg font-medium text-foreground">Why Us?</h3>
-            <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
+            <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground h-full overflow-auto">
               {features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
           </div>
         </TabsContent>
-        <TabsContent value="resources" className="mt-4 space-y-8">
-          <div>
-            <h3 className="text-lg font-semibold text-foreground">Resources for {examName}</h3>
-            <div className="space-y-4 mt-4">
-              <div className="p-4 bg-white rounded-xl border border-[#E4E4E7]">
+        <TabsContent
+          value="resources"
+          className="mt-4 flex-1 overflow-auto"
+        >
+          <div className="space-y-8 h-full">
+            <h3 className="text-lg font-semibold text-foreground">
+              Resources for {examName}
+            </h3>
+            <div className="space-y-4 mt-4 h-full flex flex-col">
+              <div className="p-4 bg-white rounded-xl border border-[#E4E4E7] flex-1 flex flex-col">
                 <div className="flex flex-col space-y-2">
                   <div className="flex items-center justify-between">
                     <h2 className="font-semibold text-[18px] leading-[28px] font-[Montserrat]">
@@ -119,7 +136,9 @@ export default function SuccessToolkit({
                       {isCollapsed ? "Expand" : "Collapse"}
                     </Button>
                   </div>
-                  <span className="text-sm text-muted-foreground">{resources.title}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {resources.title}
+                  </span>
                   <div className="flex mt-2 gap-4 justify-start">
                     {resources.badges.map((badge, index) => (
                       <span
@@ -132,7 +151,7 @@ export default function SuccessToolkit({
                   </div>
                 </div>
                 {!isCollapsed && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 flex-1 overflow-auto">
                     {resources.items.map((resource, index) => (
                       <button
                         key={index}
@@ -143,14 +162,16 @@ export default function SuccessToolkit({
                           <FileText className="h-5 w-5 text-muted-foreground" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-sm font-medium text-foreground">{resource.title}</h4>
+                          <h4 className="text-sm font-medium text-foreground">
+                            {resource.title}
+                          </h4>
                         </div>
                       </button>
                     ))}
                   </div>
                 )}
               </div>
-              <PDF examName={examName} />
+              <PDF examName={examName}  />
             </div>
           </div>
         </TabsContent>

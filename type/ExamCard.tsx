@@ -9,4 +9,5 @@ export interface ExamCard {
   progress: number;
   subjects?: string[];
   features: string[];
+  className: string;
 }

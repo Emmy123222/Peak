@@ -40,7 +40,7 @@ export function PerformanceSection() {
   const rightColumn = data.slice(half);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       {/* Total Quizzes and Average Score Section */}
       <div className="grid grid-cols-2 gap-4">
         <Card className="rounded-2xl border border-[#E4E4E7] shadow-sm">
@@ -74,7 +74,7 @@ export function PerformanceSection() {
       </div>
 
       {/* Performance by Subjects Section */}
-      <Card className="rounded-2xl border border-[#E4E4E7] shadow-sm">
+      <Card className="rounded-2xl border border-[#E4E4E7] shadow-sm w-full">
         <CardHeader className="pb-0">
           <div className="flex items-center justify-between">
             <CardTitle className="text-[16px] font-semibold text-[#101828]">
