@@ -9,6 +9,7 @@ import Image from "next/image";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("home");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,34 +25,38 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="w-full py-4 bg-white shadow-md relative">
+      <header className="w-full p-4  bg-white shadow-md relative z-50">
         <div className="container flex items-center justify-between mx-auto">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <img src="/images/navbar/peak.png" alt="" />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-sm font-medium hover:text-primary transition-colors"
-            >
-              Home
+          <div className="flex justify-between items-center max-w-[400px] w-full">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-2">
+              <img src="/images/navbar/peak.png" alt="" />
             </Link>
 
-            <Link
-              href="/contact"
-              className="text-sm font-medium hover:text-primary transition-colors"
-            >
-              Contact Us
-            </Link>
-          </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-8">
+              <Link
+                href="/"
+                onClick={()=>setActiveLink("home")}
+                className={` hover:text-primary transition-colors ${activeLink=="home"? "font-medium text-[#640789]":""}`}
+              >
+                Home
+              </Link>
+
+              <Link
+                href="/contact"
+                onClick={()=>setActiveLink("contact")}
+                className={` hover:text-primary transition-colors ${activeLink=="contact"? "font-medium text-[#640789]":""}`}
+              >
+                Contact Us
+              </Link>
+            </nav>
+          </div>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <div className=" ">
             <Button
-              className="bg-(--my-primary-color) hover:bg-(--my-primary-color)/90 rounded-full text-white cursor-pointer"
+              className="bg-(--my-primary-color) hover:bg-(--my-primary-color)/90 rounded-full  text-white cursor-pointer"
               onClick={openWaitlist}
             >
               Join waitlist
@@ -59,13 +64,13 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          {/* <button
             onClick={toggleMenu}
             className="md:hidden p-2 text-gray-600 focus:outline-none"
             aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile Navigation */}

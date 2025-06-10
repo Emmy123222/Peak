@@ -1,5 +1,6 @@
+import { ExamCard } from "../../type/type";
+
 // lib/examCards.ts
-import { ExamCard } from "../../type/ExamCard"
 export const examCards: ExamCard[] = [
   {
     id: "jamb",

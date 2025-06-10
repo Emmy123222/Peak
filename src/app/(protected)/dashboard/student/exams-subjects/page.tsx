@@ -9,7 +9,7 @@ import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import Link from "next/link";
 import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
-import { ExamCard } from "../../../../../../type/ExamCard";
+import { ExamCard } from "../../../../../../type/type";
 
 export default function ExamPrepSection() {
   const pathname = usePathname();

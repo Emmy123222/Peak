@@ -109,7 +109,7 @@ const pricingPlans = [
 const Pricing = () => {
   return (
     <section className="w-full py-16 md:py-24">
-      <div className="container px-2 md:px-4 mx-auto">
+      <div className="container px-4 mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
           Flexible Plans for Every Family
         </h1>
@@ -127,7 +127,7 @@ const Pricing = () => {
               <div className="p-8 h-full flex flex-col">
                 {plan.badgeText && (
                   <div className="mb-4">
-                    <span className="bg-purple-700 text-white text-sm py-1 px-3 rounded-full">
+                    <span className="bg-[#640789] max-md:font-semibold text-white text-sm py-3 px-6 rounded-full">
                       {plan.badgeText}
                     </span>
                   </div>
@@ -135,15 +135,15 @@ const Pricing = () => {
 
                 {!plan.badgeText && (
                   <div className="mb-4">
-                    <span className="bg-purple-700 text-white text-sm py-1 px-3 rounded-full">
-                      {plan.title}
+                    <span className="bg-[#640789] max-md:font-semibold text-white text-sm py-3 px-6 rounded-full">
+                      {plan.title} 
                     </span>
                   </div>
                 )}
 
-                <div className="mt-4 mb-6">
-                  <h3 className="text-3xl font-bold">{plan.price}</h3>
-                  <span className="text-gray-500">{plan.period}</span>
+                <div className="mt-4 mb-6 border-b border-b-gray-200">
+                  <h3 className="text-3xl font-bold mb-7">{plan.price} <span className="text-gray-500 text-lg font-light">{plan.period}</span></h3>
+                  
                 </div>
 
                 <p className="text-sm text-gray-700 mb-6">{plan.description}</p>
@@ -153,7 +153,7 @@ const Pricing = () => {
                     <li key={idx} className="flex items-start gap-2">
                       <Check
                         size={18}
-                        className="text-purple-600 mt-1 shrink-0"
+                        className="text-[#640789] mt-1 shrink-0"
                       />
                       <div>
                         <span className="text-gray-800">{feature.text}</span>
@@ -171,7 +171,7 @@ const Pricing = () => {
                   <div className="text-xs text-gray-500 mb-6">{plan.footer}</div>
                   <Button
                     variant="outline"
-                    className="w-full rounded-full border-purple-600 text-purple-600 hover:bg-purple-50 cursor-pointer"
+                    className="w-full rounded-full border-[#640789] text-[#640789] hover:bg-purple-50 cursor-pointer"
                   >
                     Subscribe
                   </Button>

@@ -2,7 +2,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { ExamCard } from "../../type/examCard";
+import { ExamCard } from "../../type/type";
 
 interface ExamContextType {
   selectedExam: ExamCard | null;

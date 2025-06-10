@@ -8,11 +8,13 @@ interface AuthState {
     email: string
 }
 
+const storedEmail = typeof window !== 'undefined' ? localStorage.getItem("state-email") || '' : '';
+
 const initialState: AuthState ={
     token: null,
     role: null,
     isAuthenticated: false,
-    email: typeof window !== 'undefined' ? (localStorage.getItem('state-email')) || '' : "",
+    email: storedEmail,
 };
 
 const authSlice = createSlice({

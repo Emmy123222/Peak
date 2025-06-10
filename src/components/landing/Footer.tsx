@@ -1,13 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
 
   return (
     <footer className="bg-[#43005D] text-white py-16">
-      <div className="container mx-auto ">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-12">
           <div className="flex items-center mb-8 md:mb-0">
             <img src="/images/navbar/peak1.png" alt="" />
@@ -17,7 +18,7 @@ const Footer = () => {
             <div className="text-lg mb-4">
               Join the PeakClass waitlist. Be the first to know when we launch!
             </div>
-            <div className="flex flex-col sm:flex-row gap-2 bg-white items-center justify-between px-2 py-1 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#43005D] focus:border-transparent">
+            <div className="flex  sm:flex-row gap-2 bg-white items-center justify-between px-2 py-1 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#43005D] focus:border-transparent">
               <input
                 type="email"
                 placeholder="Enter email"
@@ -27,7 +28,7 @@ const Footer = () => {
               />
               <Button
                 type="submit"
-                className="rounded-full bg-[#8A00FF] hover:bg-[#7200D1] px-6 py-3 text-white font-medium cursor-pointer"
+                className="rounded-full bg-[#640789] hover:bg-[#7200D1] px-6 py-3 text-white font-medium cursor-pointer"
               >
                 I'm in
               </Button>
@@ -37,8 +38,8 @@ const Footer = () => {
 
         <hr className="border-purple-800 my-8" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-8">
-          <div>
+        <div className="grid grid-cols-1 max-md:pt-5 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+          <div className=" max-md:mb-6">
             <h4 className="font-bold text-xl mb-6">Company</h4>
             <ul className="space-y-4">
               <li>
@@ -74,7 +75,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="max-md:mb-6">
             <h4 className="font-bold text-xl mb-6">Help</h4>
             <ul className="space-y-4">
               <li>
@@ -83,15 +84,15 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-300">
+                <Link href="/contact" className="hover:text-purple-300">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-bold text-xl mb-6">Legal</h4>
+          <div className="max-md:mb-6">
+            <h4 className="font-bold text-xl  mb-6 ">Legal</h4>
             <ul className="space-y-4">
               <li>
                 <a href="#" className="hover:text-purple-300">
@@ -110,7 +111,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="flex  space-x-4">
+          <div className="flex  space-x-4  max-md:mb-6">
             <span className="mr-5">Follow Us</span>
             <a
               href="#"

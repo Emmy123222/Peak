@@ -17,24 +17,25 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
     <div className="flex min-h-screen">
       {/* Left side with background + foreground image */}
-      <div className=" md:flex md:w-1/2 relative max-sm:hidden">
+      <div className=" lg:flex md:w-1/2 relative max-lg:hidden">
         {/* Background image */}
         <Image
           src="/icons/background.png"
           alt="Background"
+
           priority
           width={713}
           height={904}
         />
 
         {/* Foreground image (woman) */}
-        <div className="absolute bottom-0 left-0 z-10">
-          <Image
+        <div className="absolute bottom-0 left-0 right-0 z-10">
+          <img
             src="/icons/woman.png"
             alt="Student with books"
             width={674}
             height={400}
-            // style={{ objectFit: "contain" }}
+            className="w-[674px] h-auto"
           />
         </div>
       </div>

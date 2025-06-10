@@ -77,14 +77,14 @@ const Testimonials = () => {
 
   return (
     <section className="w-full py-16 md:py-24 bg-white overflow-hidden">
-      <div className="container px-1 md:px-6 mx-auto">
+      <div className="container mx-auto ">
         <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center text-gray-900">
           Why parents love us
         </h2>
 
-        <div className="relative max-w-6xl mx-auto overflow-hidden ">
+        <div className="relative  mx-auto overflow-hidden ">
           {/* Left blur effect - stronger blur */}
-          <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white via-white to-transparent z-10"></div>
+          <div className="absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-white via-white to-transparent z-10"></div>
 
           <Carousel
             opts={{
@@ -97,22 +97,22 @@ const Testimonials = () => {
               {testimonials.map((testimonial) => (
                 <CarouselItem
                   key={testimonial.id}
-                  className={`pl-4 md:basis-1/2 lg:basis-1/3`}
+                  className={`pl-4 md:basis-1/2 lg:basis-1/3 `}
                 >
-                  <Card className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md h-full">
+                  <Card className="bg-white p-6 rounded-xl border border-gray-100  max-md:w-[80%] max-md:mx-auto shadow-sm transition-all duration-300 hover:shadow-md h-full">
                     <div className="flex items-center gap-4 mb-4">
-                      <Avatar className="h-12 w-12 rounded-full border-2 border-pink-100">
+                      <Avatar className="h-16 w-16 rounded-full border-2 border-pink-100">
                         <AvatarImage
                           src={testimonial.photo}
                           alt={testimonial.name}
                           className="object-cover"
                         />
                       </Avatar>
-                      <h3 className="font-semibold text-lg">
+                      <h3 className="font-bold text-2xl">
                         {testimonial.name}
                       </h3>
                     </div>
-                    <p className="text-gray-600 text-base">
+                    <p className="text-gray-600 text-base font-normal">
                       "{testimonial.text}"
                     </p>
                   </Card>
@@ -159,7 +159,7 @@ const Testimonials = () => {
           </Carousel>
 
           {/* Right blur effect - stronger blur */}
-          <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white via-white to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-white via-white to-transparent z-10"></div>
         </div>
       </div>
     </section>

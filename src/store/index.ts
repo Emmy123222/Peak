@@ -2,7 +2,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authReducer from "@/store/features/authSlice"
 import {loadState, saveState} from "@/store/localStorage";
-import { uiSlice } from "./features/uiSlice";
+import  uiSlice  from "./features/uiSlice";
 
 const preloadedState = loadState();
 
@@ -11,7 +11,7 @@ export const store = configureStore({
         auth: authReducer,
         ui: uiSlice, 
     },
-    preloadedState,
+    // preloadedState,
 })
 
 store.subscribe(() => {

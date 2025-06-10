@@ -6,13 +6,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/spinner";
+import { ResetPasswordFormProps } from "../../../../../../type/type";
 
-interface ResetPasswordFormProps {
-  onSubmit: (password: string) => void;
-  onCancel: () => void;
-}
 
-const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
+const ResetPasswordForm: React.FC<any> = ({
   onSubmit,
   onCancel,
 }) => {

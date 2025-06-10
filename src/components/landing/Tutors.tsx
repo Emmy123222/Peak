@@ -14,7 +14,7 @@ const tutors = [
     subject: "Mathematics and coding",
   },
   {
-    name: "John Fiyin",
+    name: "Yussuf Bidemi ",
     image: "/images/john.png",
     subject: "Math, English",
   },
@@ -37,6 +37,11 @@ const tutors = [
     name: "John Fiyin",
     image: "/images/john2.png",
     subject: "Math, English",
+  },
+  {
+    name: "Olusegun Adeshina",
+    image: "/images/olu.png",
+    subject: "English and Verbal Reasoning",
   },
 ];
 
@@ -75,11 +80,11 @@ const Tutors = () => {
 
   return (
     <section className="w-full py-8 md:py-16">
-      <div className="container md:px-6 mx-auto">
+      <div className="container md:px-6 mx-auto px-4">
         <div className="flex flex-col items-center space-y-6 md:space-y-12">
           {/* Header */}
           <div className="text-center space-y-3">
-            <h2 className="font-montserrat font-bold text-[32px] md:text-[48px] leading-[40px] md:leading-[60px] tracking-[0] text-center">
+            <h2 className="font-montserrat font-bold text-4xl md:text-[48px] leading-[40px] md:leading-[60px] tracking-[0] text-center">
               Learn from Expert Tutors You Can Trust
             </h2>
             <p className="font-montserrat text-[16px] leading-[24px] text-center">
@@ -94,11 +99,11 @@ const Tutors = () => {
             <Button
               variant="outline"
               onClick={openWaitlist}
-              className="border rounded-full px-6 py-3 h-auto"
+              className="border rounded-full px-6 py-3 h-auto border-[#640789] text-[#640789] hover:bg-[#640789] hover:text-white"
             >
               Become a tutor
             </Button>
-            <Button className="rounded-full px-6 py-3 h-auto bg-purple-700 hover:bg-purple-800 text-white" onClick={openWaitlist}>
+            <Button className="rounded-full px-6 py-3 h-auto bg-[#640789] hover:bg-purple-800 text-white  hover:" onClick={openWaitlist}>
               Find Tutor
             </Button>
           </div>
@@ -108,22 +113,22 @@ const Tutors = () => {
               align: "start",
               loop: true,
             }}
-            className="w-full"
+            className="w-full mt-5"
           >
             <CarouselContent className="-ml-4">
               {tutors.map((tutor, index) => (
                 <CarouselItem
                   key={index}
-                  className={`pl-4 max-sm:basis-1/1 md:basis-1/3 lg:basis-1/5 max-sm:mx-auto`}
+                  className={`pl-4 max-sm:basis-1/1 md:basis-1/3 lg:basis-1/5 max-sm:mx-auto `}
                 >
                   <div
                     key={index}
-                    className="w-[200px] text-center flex flex-col items-center"
+                    className="w-[200px] max-sm:w-full text-center flex flex-col items-center "
                   >
                     <img
                       src={tutor.image}
                       alt={tutor.name}
-                      className="w-full rounded-lg object-cover"
+                      className="w-full object-cover"
                     />
                     <div className="p-4">
                       <h3 className="font-bold text-lg">{tutor.name}</h3>

@@ -61,13 +61,22 @@ const examTypes = [
     borderColor: "border-[#34A853]",
     icon: "/icons/Green.png",
   },
+  {
+    name: "A-Level",
+    description:
+      "Mathematics, Further Mathematics, Physics, English, and Biology",
+    bgColor: "bg-[#F6FFF8]",
+    textColor: "text-black",
+    borderColor: "border-[#34A853]",
+    icon: "/icons/Green.png",
+  },
 ];
 
 const Exams = () => {
   return (
     <section className="w-full py-16 md:py-24">
-      <div className="container mx-auto">
-        <h2 className="mb-4 font-montserrat font-bold text-[48px] leading-[60px] tracking-[0] text-center">
+      <div className="container mx-auto px-4">
+        <h2 className="mb-4 font-montserrat max-md:text-4xl font-bold text-[48px] leading-[60px] tracking-[0] text-center">
           Master Exams with Confidence
         </h2>
         <p className="text-[#484848]  mb-16 font-montserrat font-normal text-[16px] leading-[24px] tracking-[0%] align-middle text-center">
@@ -83,7 +92,7 @@ const Exams = () => {
                 key={index}
                 className={`p-6 rounded-lg ${exam.bgColor} ${
                   exam.borderColor
-                } border ${isLast ? "md:col-span-2" : ""}`}
+                } border `}
               >
                 <div className="flex items-start gap-4">
                   <img

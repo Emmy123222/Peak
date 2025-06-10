@@ -10,11 +10,11 @@ import { PracticeQuestions } from "../practice/Practise";
 import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { ExamCard } from "../../../../../../type/ExamCard";
 import Link from "next/link";
 import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard";
 import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
 import { Button } from "@/components/ui/button";
+import { ExamCard } from "../../../../../../type/type";
 
 export function DashboardContent() {
   const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null); // Track selected exam for SuccessToolkit

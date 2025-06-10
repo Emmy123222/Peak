@@ -15,11 +15,11 @@ export default function RoleSelection() {
   // const [selectedRole, setSelectedRole] = React.useState<string | null>(null);
   const {role: selectedRole} = useSelector((state: any) => state.auth);
   const handleProceed = () => {
-    if (selectedRole === "student") {
+    if (selectedRole === "STUDENT") {
       router.push("/auth/signup/student");
-    } else if (selectedRole === "tutor") {
+    } else if (selectedRole === "TUTOR") {
       router.push("/auth/signup/tutor");
-    } else if (selectedRole === "parent") {
+    } else if (selectedRole === "PARENT") {
       router.push("/auth/signup/parent");
     }
   };
@@ -40,23 +40,23 @@ export default function RoleSelection() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className={`border rounded-lg p-4 cursor-pointer transition-all ${
-            selectedRole === "student"
+            selectedRole === "STUDENT"
               ? "border-purple-500 bg-purple-50 shadow-sm"
               : "border-gray-200 hover:border-purple-200"
           }`}
-          onClick={() => dispatch(setRole("student"))}
+          onClick={() => dispatch(setRole("STUDENT"))}
         >
           <div className="flex items-center gap-4">
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                selectedRole === "student"
+                selectedRole === "STUDENT"
               }`}
             >
               <img
                 src="/icons/role1.png"
                 alt=""
                 className={`h-[50px] w-[50px] ${
-                  selectedRole === "student"
+                  selectedRole === "STUDENT"
                     ? "text-purple-500"
                     : "text-gray-500"
                 }`}
@@ -69,7 +69,7 @@ export default function RoleSelection() {
               <p className="text-sm text-gray-500">I want to learn</p>
             </div>
             <div className="flex items-center justify-center w-6 h-6 rounded-full border border-gray-300">
-              {selectedRole === "student" && (
+              {selectedRole === "STUDENT" && (
                 <div className="w-4 h-4 rounded-full bg-purple-500"></div>
               )}
             </div>
@@ -80,23 +80,23 @@ export default function RoleSelection() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className={`border rounded-lg p-4 cursor-pointer transition-all ${
-            selectedRole === "tutor"
+            selectedRole === "TUTOR"
               ? "border-purple-500 bg-purple-50 shadow-sm"
               : "border-gray-200 hover:border-purple-200"
           }`}
-          onClick={() => dispatch(setRole("tutor"))}
+          onClick={() => dispatch(setRole("TUTOR"))}
         >
           <div className="flex items-center gap-4">
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                selectedRole === "tutor"
+                selectedRole === "TUTOR"
               }`}
             >
               <img
                 src="/icons/role2.png"
                 alt=""
                 className={`h-[50px] w-[50px] ${
-                  selectedRole === "student"
+                  selectedRole === "TUTOR"
                     ? "text-purple-500"
                     : "text-gray-500"
                 }`}
@@ -111,7 +111,7 @@ export default function RoleSelection() {
               </p>
             </div>
             <div className="flex items-center justify-center w-6 h-6 rounded-full border border-gray-300">
-              {selectedRole === "tutor" && (
+              {selectedRole === "TUTOR" && (
                 <div className="w-4 h-4 rounded-full bg-purple-500"></div>
               )}
             </div>
@@ -122,23 +122,23 @@ export default function RoleSelection() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className={`border rounded-lg p-4 cursor-pointer transition-all ${
-            selectedRole === "parent"
+            selectedRole === "PARENT"
               ? "border-purple-500 bg-purple-50 shadow-sm"
               : "border-gray-200 hover:border-purple-200"
           }`}
-          onClick={() => dispatch(setRole("parent"))}
+          onClick={() => dispatch(setRole("PARENT"))}
         >
           <div className="flex items-center gap-4">
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                selectedRole === "parent"
+                selectedRole === "PARENT"
               }`}
             >
               <img
                 src="/icons/role3.png"
                 alt=""
                 className={`h-[50px] w-[50px] ${
-                  selectedRole === "student"
+                  selectedRole === "PARENT"
                     ? "text-purple-500"
                     : "text-gray-500"
                 }`}
@@ -153,7 +153,7 @@ export default function RoleSelection() {
               </p>
             </div>
             <div className="flex items-center justify-center w-6 h-6 rounded-full border border-gray-300">
-              {selectedRole === "parent" && (
+              {selectedRole === "PARENT" && (
                 <div className="w-4 h-4 rounded-full bg-purple-500"></div>
               )}
             </div>

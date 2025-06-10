@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Image from "next/image";
 
 const WorldMap = dynamic(() => import("./WorldMap"), { ssr: false });
 
@@ -57,9 +58,12 @@ const ContactUsPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="">
+      <main className="relative">
+        <div className="absolute inset-0 left-0 right-0 top-[-165px] ">
+          <Image src={"/icons/contact-grid.svg"} className="w-[1400px] m-auto" alt="PeakClass" width={1000} height={1000} />
+        </div>
         {/* World Map Section */}
-        <section className="relative mb-16 max-w-7xl mx-auto px-8 py-8">
+        <section className="relative mb-16 container mx-auto  py-8">
           <div className="mb-8">
             <h1 className="font-montserrat font-bold text-[55px] leading-[75px] tracking-[0] text-center">
               Reach out to us from{" "}
@@ -74,12 +78,12 @@ const ContactUsPage = () => {
 
         {/* Contact Form and Info Section */}
         <section className="w-full bg-[#FCF4FF] py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 container mx-auto px-4 sm:px-6 lg:px-8">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                How can we help
+                How can we help you?
               </h2>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">you?</h2>
+              {/* <h2 className="text-3xl md:text-4xl font-bold mb-4"></h2> */}
             </div>
 
             <div className="bg-white rounded-lg p-6 shadow-sm">
@@ -144,7 +148,7 @@ const ContactUsPage = () => {
                       <SelectTrigger className="w-[80px]">
                         <SelectValue placeholder="US" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-white">
                         <SelectItem value="US">US</SelectItem>
                         <SelectItem value="NIG">NIG</SelectItem>
                         <SelectItem value="UK">UK</SelectItem>

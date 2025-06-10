@@ -14,9 +14,9 @@ export function HeroForm({ email, setEmail, onSubmit }: HeroFormProps) {
 
     const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setIsMenuOpen(!isMenuOpen);
+  // };
 
   const openWaitlist = () => {
     setIsWaitlistOpen(true);
@@ -37,7 +37,7 @@ export function HeroForm({ email, setEmail, onSubmit }: HeroFormProps) {
     <>
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-2 max-w-md mt-4"
+      className="flex items-center gap-2 w-full md:max-w-md mt-4"
     >
       <div className="relative flex w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
         <input
@@ -53,7 +53,7 @@ export function HeroForm({ email, setEmail, onSubmit }: HeroFormProps) {
           type="submit"
 onClick={openWaitlist}
 
-          className="rounded-full bg-(--my-primary-color) hover:bg-[#7200D1] px-6 py-3 text-white font-medium cursor-pointer"
+          className="rounded-full text-sm font-semibold bg-(--my-primary-color) hover:bg-[#7200D1] px-6 py-3 text-white font-medium cursor-pointer"
         >
           I'm in
         </Button>
