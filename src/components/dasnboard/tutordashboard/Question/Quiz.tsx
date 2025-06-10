@@ -6,6 +6,22 @@ import { MultipleChoiceQuestion } from '../Question/MultipleChoiceQuestion';
 import { TextInputQuestion } from '../Question/TextInputQuestion';
 import quizData from '@/lib/quizData';
 import { QuizResultModal } from './QuizResultModal';
+import QuizSummary from './QuizSummary';
+
+// Define the QuizOption type
+interface QuizOption {
+  id: string;
+  text: string;
+}
+
+// Define the QuizQuestion type
+interface QuizQuestion {
+  question: string;
+  type: 'multiple-choice' | 'text-input';
+  options?: QuizOption[];
+  correctAnswer?: string;
+  correction?: string[];
+}
 
 const Quiz = ({ initialTime = 30 * 60 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -13,8 +29,18 @@ const Quiz = ({ initialTime = 30 * 60 }) => {
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
   const [quizEnded, setQuizEnded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
 
-  const currentQuestion = quizData[currentQuestionIndex];
+  // Move formatTime above its usage
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
+  const timeSpent = formatTime(initialTime - timeRemaining);
+
+  const currentQuestion = quizData[currentQuestionIndex] as QuizQuestion;
   const answeredQuestions = Object.keys(answers).length;
   const totalQuestions = 40;
   const progress = (answeredQuestions / totalQuestions) * 100;
@@ -51,19 +77,14 @@ const Quiz = ({ initialTime = 30 * 60 }) => {
     }
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
   const handleReview = () => {
     setShowModal(false);
-    // Add logic to navigate to a review page if needed
+    setShowSummary(true);
   };
 
   const handleTryAgain = () => {
     setShowModal(false);
+    setShowSummary(false);
     setQuizEnded(false);
     setCurrentQuestionIndex(0);
     setAnswers({});
@@ -72,8 +93,30 @@ const Quiz = ({ initialTime = 30 * 60 }) => {
 
   const handleCancel = () => {
     setShowModal(false);
+    setShowSummary(false);
   };
 
+  const preparedQuestions = quizData.map((q: QuizQuestion, index: number) => ({
+    question: `${index + 1}. ${q.question}`,
+    isCorrect: answers[index] === q.correctAnswer,
+    correction: answers[index] !== q.correctAnswer ? (q.correction || []) : undefined,
+    timeSpent: '34s', // This can be dynamic if you track time per question
+  }));
+
+  // If QuizSummary is shown, render only it
+  if (showSummary) {
+    return (
+      <QuizSummary
+        onClose={handleCancel}
+        correctCount={score}
+        totalQuestions={totalQuestions}
+        timeSpent={timeSpent}
+        questions={preparedQuestions}
+      />
+    );
+  }
+
+  // Otherwise, render the Quiz content or QuizResultModal
   return (
     <div className="min-h-screen flex p-4 relative">
       <div className="w-full bg-white rounded-lg overflow-hidden shadow-lg">
@@ -129,6 +172,9 @@ const Quiz = ({ initialTime = 30 * 60 }) => {
           onTryAgain={handleTryAgain}
           onReview={handleReview}
           onCancel={handleCancel}
+          questions={preparedQuestions}
+          totalQuestions={totalQuestions}
+          timeSpent={timeSpent}
         />
       )}
     </div>

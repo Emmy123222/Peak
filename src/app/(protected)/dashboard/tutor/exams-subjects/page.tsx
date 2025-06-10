@@ -8,21 +8,76 @@ import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import Link from "next/link";
 import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
+import SuccessToolkit1 from "@/components/dasnboard/tutordashboard/SuccessToolkit1";
 import { ExamCard } from "../../../../../../type/ExamCard";
+
+// Subject-specific data for SuccessToolkit1
+const topicData = {
+  Mathematics: {
+    topics: [
+      { name: "Algebra" },
+      {
+        name: "Estimation and Approximation",
+        subTopics: ["Rounding", "Significant Figures"],
+      },
+      { name: "Geometry" },
+      { name: "Ratio and Proportion" },
+      { name: "Scale Drawings" },
+      { name: "Statistics and Probability" },
+    ],
+    totalTopics: 150,
+    totalQuizzes: 1000,
+  },
+  English: {
+    topics: [
+      { name: "Comprehension" },
+      { name: "Grammar", subTopics: ["Tenses", "Parts of Speech"] },
+      { name: "Vocabulary" },
+      { name: "Essay Writing" },
+    ],
+    totalTopics: 120,
+    totalQuizzes: 800,
+  },
+  Science: {
+    topics: [
+      { name: "Biology Basics" },
+      { name: "Physics Fundamentals", subTopics: ["Motion", "Energy"] },
+      { name: "Chemistry Introduction" },
+    ],
+    totalTopics: 100,
+    totalQuizzes: 600,
+  },
+} satisfies Record<string, any>;
+
+const tabContent = {
+  overview:
+    "Master Junior Secondary curriculum with engaging lessons, quizzes, and practice tests tailored for your level.",
+  resources: ["Interactive Lessons", "Practice Quizzes", "Revision Notes"],
+};
 
 export default function ExamPrepSection() {
   const pathname = usePathname();
   const showAll = pathname === "/dashboard/tutordashboard/exams-subjects";
   const displayedCards = showAll ? examCards : examCards.slice(0, 7);
+
   const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null);
 
   const handleButtonClick = (card: ExamCard) => {
-    setSelectedExam(card); // Set the selected exam to show SuccessToolkit
+    setSelectedExam(card);
   };
 
   const handleCloseToolkit = () => {
-    setSelectedExam(null); // Clear the selected exam to return to the card list
+    setSelectedExam(null);
   };
+
+  // Extract matching subject key for use in SuccessToolkit1
+  const subjectKey = (selectedExam &&
+    (["Mathematics", "English", "Science"].find((subject) =>
+      selectedExam.title.toLowerCase().includes(subject.toLowerCase())
+    ) as keyof typeof topicData | undefined)
+  );
+
+  const isJuniorSecondarySubject = !!subjectKey;
 
   return (
     <div className="space-y-4 px-2 sm:px-4">
@@ -34,14 +89,25 @@ export default function ExamPrepSection() {
           >
             Close
           </button>
-          <SuccessToolkit
-            examName={selectedExam.title}
-            description={selectedExam.description}
-            features={selectedExam.features}
-            icon={selectedExam.icon}
-            color={selectedExam.color}
-            className="w-full"
-          />
+
+          {isJuniorSecondarySubject ? (
+            <SuccessToolkit1
+              subject={subjectKey}
+              topics={topicData[subjectKey].topics}
+              tabContent={tabContent}
+              totalTopics={topicData[subjectKey].totalTopics}
+              totalQuizzes={topicData[subjectKey].totalQuizzes}
+            />
+          ) : (
+            <SuccessToolkit
+              examName={selectedExam.title}
+              description={selectedExam.description}
+              features={selectedExam.features}
+              icon={selectedExam.icon}
+              color={selectedExam.color}
+              className="w-full"
+            />
+          )}
         </div>
       ) : (
         <Tabs defaultValue="exam-prep" className="w-full">
@@ -56,7 +122,7 @@ export default function ExamPrepSection() {
               </Link>
             )}
           </div>
-          <TabsList className="bg-[#F3F5F9] rounded-[20px] flex flex-col sm:flex-row overflow-x-auto p-1 sm:p-2">
+          <TabsList className="justify-start rounded-[20px] flex flex-col sm:flex-row overflow-x-auto p-1 sm:p-2">
             {tabConfig.map((tab) => (
               <TabsTrigger
                 key={tab.value}
@@ -68,14 +134,12 @@ export default function ExamPrepSection() {
             ))}
           </TabsList>
           {tabConfig.map((tab) => (
-            <TabsContent
-              key={tab.value}
-              value={tab.value}
-              className="mt-2 sm:mt-4 w-full"
-            >
-              <div className="space-y-2 sm:space-y-4">
-                {tab.content(examCards, displayedCards, handleButtonClick)}
-              </div>
+            <TabsContent key={tab.value} value={tab.value} className="mt-2 sm:mt-4 w-full">
+              <tab.Component
+                examCards={examCards}
+                displayedCards={displayedCards}
+                handleButtonClick={handleButtonClick}
+              />
             </TabsContent>
           ))}
         </Tabs>

@@ -1,52 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WelcomeHeader } from "../Welcome/Welcomes";
 import { PerformanceSection } from "../Performance/Performance";
-import { WeeklyStreakSection } from "../weekly/Weekly";
+import WeeklyStreakSection  from "../week/page";
 import { SubjectProgressTracker } from "../Subject/Subjects";
 import { PracticeQuestions } from "../practice/Practise";
 import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { ExamCard } from "../../../../../../type/ExamCard";
 import Link from "next/link";
 import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard";
 import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export function DashboardContent() {
-  const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null); // Track selected exam for SuccessToolkit
-  const [showWeeklyAll, setShowWeeklyAll] = useState(false); // Track "View all" for WeeklyStreak
+  const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null);
 
-  const displayedCards = examCards.slice(0, 3); // Show only 3 cards on dashboard
+  const displayedCards = examCards.slice(0, 3);
 
   const handleExamCardClick = (card: ExamCard) => {
-    console.log("Exam card clicked:", card.title); // Debug log
-    setSelectedExam(card); // Show SuccessToolkit when an exam card is clicked
-    console.log("After clicking exam card - selectedExam:", card); // Debug log
+    setSelectedExam(card);
   };
 
   const handleBackToDashboard = () => {
-    console.log("handleBackToDashboard called"); // Debug log
-    setSelectedExam(null); // Return to default dashboard view
-    console.log("After back to dashboard - selectedExam:", null); // Debug log
+    setSelectedExam(null);
   };
 
-  const handleWeeklyViewAll = () => {
-    console.log("Weekly View all clicked"); // Debug log
-    setShowWeeklyAll(true); // Trigger full view
-  };
-
-  const handleWeeklyBack = () => {
-    console.log("Back to dashboard from Weekly View all"); // Debug log
-    setShowWeeklyAll(false); // Return to dashboard view
-  };
-
-  // Render SuccessToolkit if an exam card is clicked
   if (selectedExam) {
-    console.log("Rendering SuccessToolkit for exam:", selectedExam.title); // Debug log
     return (
       <div>
         <Button variant="outline" onClick={handleBackToDashboard} className="mb-4">
@@ -63,95 +46,6 @@ export function DashboardContent() {
     );
   }
 
-  // Render WeeklyStreak full view if "View all" is triggered
-  if (showWeeklyAll) {
-    return (
-      <div className="min-h-screen bg-white p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Weekly Streak - All Items</h2>
-          <Button variant="outline" onClick={handleWeeklyBack} className="text-[#7F56D9] flex items-center gap-2">
-            <ChevronLeft className="h-4 w-4" />
-            Back
-          </Button>
-        </div>
-        <Tabs defaultValue="weekly-streak" className="w-full">
-          <TabsList className="bg-transparent flex space-x-2 mb-4 justify-start">
-            <TabsTrigger
-              value="weekly-streak"
-              className="rounded-full px-4 py-2 text-sm bg-[#7F56D9] text-white data-[state=inactive]:bg-transparent data-[state=inactive]:text-[#6B7280]"
-            >
-              Weekly streak
-            </TabsTrigger>
-            <TabsTrigger
-              value="my-achievement"
-              className="rounded-full px-4 py-2 text-sm bg-transparent text-[#6B7280] data-[state=active]:bg-[#7F56D9] data-[state=active]:text-white"
-            >
-              My achievement
-            </TabsTrigger>
-            <TabsTrigger
-              value="my-certificates"
-              className="rounded-full px-4 py-2 text-sm bg-transparent text-[#6B7280] data-[state=active]:bg-[#7F56D9] data-[state=active]:text-white"
-            >
-              My certificates
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="weekly-streak">
-            <div className="bg-white rounded-lg p-4 shadow-md">
-              <h2 className="text-lg font-semibold text-[#1D2939] mb-4">Weekly streak 0/5</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                {Array.from({ length: 15 }, (_, i) => i + 1)
-                  .slice(0, 5)
-                  .map((index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      <div className="flex h-12 w-12 items-center justify-center">
-                        <img
-                          src={`/icons/badges/badge${index}.png`}
-                          alt={`Badge ${index}`}
-                          className="h-10 w-10"
-                        />
-                      </div>
-                      <div className="mt-1 text-xs text-center text-[#6B7280]">
-                        Complete 5 full course
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="my-achievement">
-            <div className="bg-white rounded-lg p-4 shadow-md">
-              <h2 className="text-lg font-semibold text-[#1D2939] mb-4">My Achievements</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
-                {Array.from({ length: 10 }, (_, i) => i)
-                  .map((index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      <div className={`flex h-12 w-12 items-center justify-center  ${index % 2 === 0 ? '' : ''}`}>
-                        <img
-                          src={`/icons/badges/badge${index + 1}.png`}
-                          alt={`Achievement Badge ${index + 1}`}
-                          className="h-10 w-10"
-                        />
-                      </div>
-                      <div className="mt-1 text-xs text-center text-[#6B7280]">
-                        Complete 5 full course
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="my-certificates">
-            <div className="bg-white rounded-lg p-4 shadow-md">
-              <h2 className="text-lg font-semibold text-[#1D2939] mb-4">My Certificates</h2>
-              <p className="text-[#6B7280]">No certificates yet.</p>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
-    );
-  }
-
-  // Default dashboard view
   const renderButton = (card: ExamCard) => (
     <button
       onClick={() => handleExamCardClick(card)}
@@ -165,6 +59,9 @@ export function DashboardContent() {
     </button>
   );
 
+  function handleButtonClick(card: ExamCard): void {
+    handleExamCardClick(card);
+  }
   return (
     <div className="space-y-6">
       <WelcomeHeader />
@@ -189,9 +86,11 @@ export function DashboardContent() {
             </TabsList>
             {tabConfig.map((tab) => (
               <TabsContent key={tab.value} value={tab.value} className="mt-4">
-                {tab.value === "exam-prep"
-                  ? tab.content(examCards, displayedCards, renderButton)
-                  : tab.content(examCards, displayedCards, renderButton)}
+                <tab.Component
+      examCards={examCards}
+      displayedCards={displayedCards}
+      handleButtonClick={handleButtonClick}
+    />
               </TabsContent>
             ))}
           </Tabs>
@@ -202,7 +101,7 @@ export function DashboardContent() {
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <WeeklyStreakSection onViewAll={handleWeeklyViewAll} />
+          <WeeklyStreakSection />
           <PracticeQuestions />
         </div>
         <div>

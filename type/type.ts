@@ -4,10 +4,11 @@ export type QuizOption = {
   text: string;
 };
 
-export type QuizQuestion = {
+export interface QuizQuestion {
   id: number;
   question: string;
   type: "multiple-choice" | "text-input";
-  options?: QuizOption[];
-  correctAnswer: string;
-};
+  options?: { id: string; text: string }[];
+  correctAnswer?: string; // Make optional
+  correction?: string[];
+}
