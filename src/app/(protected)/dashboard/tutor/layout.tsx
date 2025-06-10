@@ -12,10 +12,12 @@ import {
   Award,
   Settings,
   Menu,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import "@/app/globals.css";
 import { Button } from "@/components/ui/button";
+import ProfileCard from "@/components/dasnboard/tutordashboard/ProfilePage";
 
 interface SidebarLinkProps {
   href: string;
@@ -50,10 +52,21 @@ function SidebarLink({
 
 function Sidebar({ collapsed }: { collapsed: boolean }) {
   const pathname = usePathname();
+  const [collapseds, setCollapsed] = useState<boolean>(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isProfileVisible, setIsProfileVisible] = useState<boolean>(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleViewProfile = () => {
+    setIsDropdownOpen(false);
+    setIsProfileVisible(!isProfileVisible); // Toggle profile visibility
+  };
 
   return (
     <div className="flex h-full flex-col">
-      {/* Logo */}
       <div className="flex items-center justify-center h-20">
         <img
           src="/icons/Black 1.png"
@@ -65,45 +78,111 @@ function Sidebar({ collapsed }: { collapsed: boolean }) {
         />
       </div>
 
-      {/* User Profile */}
       <div className="mt-4">
-        <div
-          className={cn(
-            "flex items-center p-2 mb-4 transition-transform",
-            collapsed
-              ? "justify-center border border-[#E4E4E4] h-[48px] w-[45px] mx-auto rounded-[14px]"
-              : "mx-4 h-[48px] rounded-[20px] border border-[#E4E4E4]"
-          )}
-        >
-          <img
-            src="/icons/bags.png"
-            alt="User Avatar"
-            className="w-[30px] h-[30px]"
-          />
-          {!collapsed && (
-            <>
-              <div className="flex-1 pl-2">
-                <span className="text-base font-medium">Vivian Adams</span>
-              </div>
-              <svg
-                className="w-5 h-5 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
+        <div className="relative">
+          <div
+            className={cn(
+              "flex items-center p-2 mb-4 transition-transform cursor-pointer",
+              collapsed
+                ? "justify-center border border-[#E4E4E4] h-[48px] w-[45px] mx-auto rounded-[14px]"
+                : "mx-4 h-[48px] rounded-[20px] border border-[#E4E4E4]"
+            )}
+            onClick={toggleDropdown}
+          >
+            <img
+              src="/icons/bags.png"
+              alt="User Avatar"
+              className="w-[30px] h-[30px]"
+            />
+            {!collapsed && (
+              <>
+                <div className="flex-1 pl-2">
+                  <span className="text-base font-medium">Vivian Adams</span>
+                </div>
+                <svg
+                  className={cn(
+                    "w-5 h-5 text-gray-500 transition-transform",
+                    isDropdownOpen && "rotate-90"
+                  )}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </>
+            )}
+          </div>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && !collapsed && (
+            <div className="absolute right-4 mt-2 w-48 bg-white border border-[#E4E4E4] rounded-lg shadow-lg z-10 w-[220px]">
+              <ul className="py-2">
+                <Link
+                  href="/dashboard/tutor/profile"
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center justify-between"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  View Profile
+                  <svg
+                    className="w-5 h-5 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+                <li
+                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center justify-between"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Logout
+                  <svg
+                    className="w-5 h-5 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </li>
+              </ul>
+              {isProfileVisible && (
+                <ProfileCard
+                  name="John Doe"
+                  email="john@example.com"
+                  grade="5"
+                  age="12"
+                  subjects={["Math", "Science"]}
+                  hobbies={["Chess", "Swimming"]}
+                  badges={[
+                    { name: "Top Scorer", color: "yellow", icon: "🏆" },
+                  ]}
                 />
-              </svg>
-            </>
+              )}
+            </div>
           )}
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 overflow-auto px-2">
           <div className="space-y-4">
             <SidebarLink
@@ -142,10 +221,10 @@ function Sidebar({ collapsed }: { collapsed: boolean }) {
               collapsed={collapsed}
             />
             <SidebarLink
-              href="/dashboard/tutor/certificates"
+              href="/dashboard/tutor/WeeklyStreakDetails"
               icon={Award}
               label="Certificates & Badges"
-              active={pathname === "/dashboard/tutor/certificates"}
+              active={pathname === "/dashboard/tutor/WeeklyStreakDetails"}
               collapsed={collapsed}
             />
             <SidebarLink
@@ -168,13 +247,14 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
-      {/* Sidebar with hardware-accelerated transform */}
+      {/* Desktop Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 z-50 flex flex-col lg:relative bg-white shadow-md transform-gpu",
+          "fixed inset-y-0 z-50 flex flex-col lg:relative bg-white shadow-md transform-gpu max-sm:hidden",
           "transition-[width] duration-200 ease-out will-change-[width]",
           sidebarOpen ? "w-64" : "w-[106px]"
         )}
@@ -182,7 +262,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <Sidebar collapsed={!sidebarOpen} />
       </div>
 
-      {/* Toggle button */}
+      {/* Desktop Toggle */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
         className={cn(
@@ -198,15 +278,35 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         />
       </button>
 
-      {/* Main content */}
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] bg-black/40 flex">
+          <div className="w-[260px] bg-white h-full shadow-md relative">
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute top-4 right-4"
+            >
+              <X className="w-6 h-6 text-gray-600" />
+            </button>
+            <Sidebar collapsed={false} />
+          </div>
+          <div
+            className="flex-1"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        </div>
+      )}
+
+      {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         <header className="sticky top-0 z-40 bg-white text-black p-4 flex items-center justify-between shadow-md h-[84px]">
           <div className="flex items-center gap-4">
+            {/* Hamburger icon */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden text-white"
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden"
             >
               <Menu className="h-6 w-6" />
             </Button>

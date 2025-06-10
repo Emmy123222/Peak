@@ -30,17 +30,19 @@ export function WelcomeHeader() {
         {/* Foreground content */}
         <CardContent className="p-6 flex items-center justify-between  ">
           <div>
-            <h2 className="text-xl font-bold flex items-center gap-2">
+            <h2 className=" flex items-center gap-2 font-[Montserrat] font-normal text-[18px]  leading-[20px] tracking-[0]">
               Hello, Vivian <span className="text-xl">👋</span>
             </h2>
-            <p className="text-2xl font-bold mt-1">Welcome to your Dashboard</p>
+            <p className="text-2xl font-bold mt-1 max-sm:hidden">Welcome to your Dashboard</p>
+             <p className="font-normal text-[18px]  leading-[20px] tracking-[0]  sm:hidden">Welcome to your</p>
+             <p className="font-normal text-[18px]  leading-[20px] tracking-[0] sm:hidden">Dashboard</p>
           </div>
             <div className=" absolute inset-0 z-10 flex pointer-events-none flex justify-end ">
               <img src="/icons/cir.png" alt="" className="ml-20"/>
             <img
               src="/icons/sch.png"
               alt="Student studying"
-              className=""
+              className="max-sm:w-[120.58px] max-sm:h-[96.18px] max-sm:mt-6"
             />
           </div>
         </CardContent>

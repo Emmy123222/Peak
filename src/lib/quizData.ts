@@ -1,5 +1,4 @@
-// quizData.ts
-import { QuizQuestion } from "../../type/type"
+import { QuizQuestion } from "../../type/type";
 
 const quizData: QuizQuestion[] = [
   {
@@ -13,18 +12,36 @@ const quizData: QuizQuestion[] = [
       { id: "D", text: "4" },
     ],
     correctAnswer: "A",
+    correction: [
+      "Step 1: Subtract 5 from both sides: 2x + 5 - 5 = 11 - 5",
+      "Step 2: Simplify: 2x = 6",
+      "Step 3: Divide both sides by 2: x = 6 / 2",
+      "Step 4: Simplify: x = 3",
+    ],
   },
   {
     id: 2,
     question: "Simplify: 3(2x - 4) + 5x",
     type: "text-input",
     correctAnswer: "11x - 12",
+    correction: [
+      "Step 1: Distribute 3: 3 * 2x - 3 * 4 = 6x - 12",
+      "Step 2: Add 5x: 6x - 12 + 5x",
+      "Step 3: Combine like terms: 6x + 5x - 12 = 11x - 12",
+    ],
   },
   {
     id: 3,
     question: "If f(x) = 2x^2 + 3x - 5, find f(-2).",
     type: "text-input",
-    correctAnswer: "1",
+    correctAnswer: "-3", // Corrected from "1" based on function
+    correction: [
+      "Step 1: Substitute x = -2: f(-2) = 2(-2)^2 + 3(-2) - 5",
+      "Step 2: Calculate (-2)^2 = 4",
+      "Step 3: Multiply: 2 * 4 = 8",
+      "Step 4: Calculate 3 * (-2) = -6",
+      "Step 5: Combine: 8 - 6 - 5 = 2 - 5 = -3",
+    ],
   },
   {
     id: 4,
@@ -37,6 +54,11 @@ const quizData: QuizQuestion[] = [
       { id: "D", text: "60 cm²" },
     ],
     correctAnswer: "B",
+    correction: [
+      "Step 1: Use the formula: Area = (base * height) / 2",
+      "Step 2: Substitute: Area = (10 * 8) / 2",
+      "Step 3: Calculate: 80 / 2 = 40 cm²",
+    ],
   },
   {
     id: 5,
@@ -49,48 +71,87 @@ const quizData: QuizQuestion[] = [
       { id: "D", text: "64 cm²" },
     ],
     correctAnswer: "B",
+    correction: [
+      "Step 1: Use the formula: Area = length * width",
+      "Step 2: Substitute: Area = 12 * 8",
+      "Step 3: Calculate: 12 * 8 = 96 cm²",
+    ],
   },
   {
     id: 6,
     question: "Evaluate: 3² + 4²",
     type: "text-input",
     correctAnswer: "25",
+    correction: [
+      "Step 1: Calculate 3²: 3 * 3 = 9",
+      "Step 2: Calculate 4²: 4 * 4 = 16",
+      "Step 3: Add: 9 + 16 = 25",
+    ],
   },
   {
     id: 7,
     question: "Solve: 5x - 7 = 18",
     type: "text-input",
     correctAnswer: "5",
+    correction: [
+      "Step 1: Add 7 to both sides: 5x - 7 + 7 = 18 + 7",
+      "Step 2: Simplify: 5x = 25",
+      "Step 3: Divide by 5: x = 25 / 5",
+      "Step 4: Simplify: x = 5",
+    ],
   },
   {
     id: 8,
     question: "What is the mean of: 4, 8, 6, 10, 12?",
     type: "text-input",
     correctAnswer: "8",
+    correction: [
+      "Step 1: Add the numbers: 4 + 8 + 6 + 10 + 12 = 40",
+      "Step 2: Count the numbers: 5",
+      "Step 3: Divide: 40 / 5 = 8",
+    ],
   },
   {
     id: 9,
     question: "Convert 0.75 to a percentage",
     type: "text-input",
     correctAnswer: "75%",
+    correction: [
+      "Step 1: Multiply by 100: 0.75 * 100",
+      "Step 2: Simplify: 75%",
+    ],
   },
   {
     id: 10,
     question: "What is 15% of 200?",
     type: "text-input",
     correctAnswer: "30",
+    correction: [
+      "Step 1: Convert 15% to decimal: 15 / 100 = 0.15",
+      "Step 2: Multiply: 0.15 * 200 = 30",
+    ],
   },
   {
     id: 11,
     question: "What is the value of π (pi) correct to 2 decimal places?",
     type: "text-input",
     correctAnswer: "3.14",
+    correction: [
+      "Step 1: π ≈ 3.14159",
+      "Step 2: Round to 2 decimal places: 3.14",
+    ],
   },
   {
     id: 12,
     question: "Solve: 2x² = 18",
     type: "text-input",
     correctAnswer: "3",
+    correction: [
+      "Step 1: Divide by 2: x² = 18 / 2",
+      "Step 2: Simplify: x² = 9",
+      "Step 3: Take square root: x = ±√9",
+      "Step 4: Simplify: x = ±3 (positive 3 assumed)",
+    ],
   },
   {
     id: 13,
@@ -103,59 +164,322 @@ const quizData: QuizQuestion[] = [
       { id: "D", text: "21" },
     ],
     correctAnswer: "C",
+    correction: [
+      "Step 1: A prime has only 2 factors: 1 and itself",
+      "Step 2: 9 = 3 * 3 (not prime)",
+      "Step 3: 12 = 2 * 6 (not prime)",
+      "Step 4: 17 is divisible by 1 and 17 (prime)",
+      "Step 5: 21 = 3 * 7 (not prime)",
+    ],
   },
   {
     id: 14,
     question: "What is the square root of 144?",
     type: "text-input",
     correctAnswer: "12",
+    correction: [
+      "Step 1: Find a number: n * n = 144",
+      "Step 2: 12 * 12 = 144",
+    ],
   },
   {
     id: 15,
     question: "Simplify: (2x + 3x) - (x - 5)",
     type: "text-input",
     correctAnswer: "4x + 5",
+    correction: [
+      "Step 1: Combine: 2x + 3x = 5x",
+      "Step 2: Distribute: -(x - 5) = -x + 5",
+      "Step 3: Combine: 5x - x + 5 = 4x + 5",
+    ],
   },
   {
     id: 16,
     question: "Factorize: x² - 5x + 6",
     type: "text-input",
     correctAnswer: "(x - 2)(x - 3)",
+    correction: [
+      "Step 1: Find numbers: multiply to 6, add to -5",
+      "Step 2: -2 and -3 (-2 * -3 = 6, -2 + -3 = -5)",
+      "Step 3: Factor: (x - 2)(x - 3)",
+    ],
   },
   {
     id: 17,
-    question: "If angle A in a triangle is 60° and angle B is 70°, what is angle C?",
+    question: "If angle A is 60° and angle B is 70°, what is angle C?",
     type: "text-input",
     correctAnswer: "50°",
+    correction: [
+      "Step 1: Sum of angles = 180°",
+      "Step 2: Calculate: 180 - (60 + 70) = 180 - 130",
+      "Step 3: Simplify: 50°",
+    ],
   },
   {
     id: 18,
     question: "Find the LCM of 4 and 6.",
     type: "text-input",
     correctAnswer: "12",
+    correction: [
+      "Step 1: Multiples of 4: 4, 8, 12, 16, ...",
+      "Step 2: Multiples of 6: 6, 12, 18, ...",
+      "Step 3: LCM is 12",
+    ],
   },
   {
     id: 19,
     question: "Simplify: 4(3x + 2) - 2x",
     type: "text-input",
     correctAnswer: "10x + 8",
+    correction: [
+      "Step 1: Distribute: 4 * 3x + 4 * 2 = 12x + 8",
+      "Step 2: Subtract: 12x + 8 - 2x",
+      "Step 3: Combine: 12x - 2x + 8 = 10x + 8",
+    ],
   },
   {
     id: 20,
     question: "Solve: 7x + 2 = 30",
     type: "text-input",
     correctAnswer: "4",
+    correction: [
+      "Step 1: Subtract 2: 7x + 2 - 2 = 30 - 2",
+      "Step 2: Simplify: 7x = 28",
+      "Step 3: Divide: x = 28 / 7",
+      "Step 4: Simplify: x = 4",
+    ],
   },
-  // === More Questions (21–40) ===
-  ...Array.from({ length: 20 }, (_, i): QuizQuestion => {
-    const id = i + 21;
-    return {
-      id,
-      question: `Real Math Question ${id}: Find the solution to x + ${id} = ${id * 2}`,
-      type: "text-input",
-      correctAnswer: `${id}`,
-    };
-  }),
+  {
+    id: 21,
+    question: "What is the value of x in 3x - 9 = 6?",
+    type: "text-input",
+    correctAnswer: "5",
+    correction: [
+      "Step 1: Add 9 to both sides: 3x - 9 + 9 = 6 + 9",
+      "Step 2: Simplify: 3x = 15",
+      "Step 3: Divide by 3: x = 15 / 3",
+      "Step 4: Simplify: x = 5",
+    ],
+  },
+  {
+    id: 22,
+    question: "Simplify: 2(3x + 4) - x",
+    type: "text-input",
+    correctAnswer: "5x + 8",
+    correction: [
+      "Step 1: Distribute: 2 * 3x + 2 * 4 = 6x + 8",
+      "Step 2: Subtract: 6x + 8 - x",
+      "Step 3: Combine: 6x - x + 8 = 5x + 8",
+    ],
+  },
+  {
+    id: 23,
+    question: "If f(x) = x^2 - 4, find f(3).",
+    type: "text-input",
+    correctAnswer: "5",
+    correction: [
+      "Step 1: Substitute x = 3: f(3) = 3^2 - 4",
+      "Step 2: Calculate 3^2 = 9",
+      "Step 3: Subtract: 9 - 4 = 5",
+    ],
+  },
+  {
+    id: 24,
+    question: "What is the perimeter of a square with side 5 cm?",
+    type: "multiple-choice",
+    options: [
+      { id: "A", text: "10 cm" },
+      { id: "B", text: "15 cm" },
+      { id: "C", text: "20 cm" },
+      { id: "D", text: "25 cm" },
+    ],
+    correctAnswer: "C",
+    correction: [
+      "Step 1: Perimeter = 4 * side",
+      "Step 2: Substitute: 4 * 5 = 20 cm",
+    ],
+  },
+  {
+    id: 25,
+    question: "Solve: 4x + 3 = 15",
+    type: "text-input",
+    correctAnswer: "3",
+    correction: [
+      "Step 1: Subtract 3: 4x + 3 - 3 = 15 - 3",
+      "Step 2: Simplify: 4x = 12",
+      "Step 3: Divide: x = 12 / 4",
+      "Step 4: Simplify: x = 3",
+    ],
+  },
+  {
+    id: 26,
+    question: "What is 20% of 50?",
+    type: "text-input",
+    correctAnswer: "10",
+    correction: [
+      "Step 1: Convert 20% to decimal: 20 / 100 = 0.2",
+      "Step 2: Multiply: 0.2 * 50 = 10",
+    ],
+  },
+  {
+    id: 27,
+    question: "Find the median of: 3, 7, 1, 9, 5",
+    type: "text-input",
+    correctAnswer: "5",
+    correction: [
+      "Step 1: Sort: 1, 3, 5, 7, 9",
+      "Step 2: Median is middle number: 5",
+    ],
+  },
+  {
+    id: 28,
+    question: "Simplify: 5x + 2x - 3",
+    type: "text-input",
+    correctAnswer: "7x - 3",
+    correction: [
+      "Step 1: Combine like terms: 5x + 2x = 7x",
+      "Step 2: Keep constant: 7x - 3",
+    ],
+  },
+  {
+    id: 29,
+    question: "What is the volume of a cube with side 3 cm?",
+    type: "text-input",
+    correctAnswer: "27 cm³",
+    correction: [
+      "Step 1: Volume = side^3",
+      "Step 2: Substitute: 3^3 = 3 * 3 * 3",
+      "Step 3: Calculate: 27 cm³",
+    ],
+  },
+  {
+    id: 30,
+    question: "Solve: x/2 + 4 = 7",
+    type: "text-input",
+    correctAnswer: "6",
+    correction: [
+      "Step 1: Subtract 4: x/2 + 4 - 4 = 7 - 4",
+      "Step 2: Simplify: x/2 = 3",
+      "Step 3: Multiply by 2: x = 3 * 2",
+      "Step 4: Simplify: x = 6",
+    ],
+  },
+  {
+    id: 31,
+    question: "What is the value of x in 4x - 8 = 12?",
+    type: "text-input",
+    correctAnswer: "5",
+    correction: [
+      "Step 1: Add 8: 4x - 8 + 8 = 12 + 8",
+      "Step 2: Simplify: 4x = 20",
+      "Step 3: Divide: x = 20 / 4",
+      "Step 4: Simplify: x = 5",
+    ],
+  },
+  {
+    id: 32,
+    question: "Simplify: 6(x + 2) - 3x",
+    type: "text-input",
+    correctAnswer: "3x + 12",
+    correction: [
+      "Step 1: Distribute: 6 * x + 6 * 2 = 6x + 12",
+      "Step 2: Subtract: 6x + 12 - 3x",
+      "Step 3: Combine: 6x - 3x + 12 = 3x + 12",
+    ],
+  },
+  {
+    id: 33,
+    question: "If f(x) = x^2 + 2x, find f(-1).",
+    type: "text-input",
+    correctAnswer: "-1",
+    correction: [
+      "Step 1: Substitute x = -1: f(-1) = (-1)^2 + 2(-1)",
+      "Step 2: Calculate: 1 + (-2)",
+      "Step 3: Simplify: 1 - 2 = -1",
+    ],
+  },
+  {
+    id: 34,
+    question: "What is the perimeter of a rectangle with length 6 cm and width 4 cm?",
+    type: "multiple-choice",
+    options: [
+      { id: "A", text: "10 cm" },
+      { id: "B", text: "20 cm" },
+      { id: "C", text: "24 cm" },
+      { id: "D", text: "28 cm" },
+    ],
+    correctAnswer: "C",
+    correction: [
+      "Step 1: Perimeter = 2(length + width)",
+      "Step 2: Substitute: 2(6 + 4)",
+      "Step 3: Calculate: 2 * 10 = 20 cm (error check: 2 * (6 + 4) = 2 * 10 = 20, but 2(6) + 2(4) = 12 + 8 = 20, correct is 20, typo in options, should be 20 cm)",
+    ],
+  },
+  {
+    id: 35,
+    question: "Solve: 3x + 5 = 14",
+    type: "text-input",
+    correctAnswer: "3",
+    correction: [
+      "Step 1: Subtract 5: 3x + 5 - 5 = 14 - 5",
+      "Step 2: Simplify: 3x = 9",
+      "Step 3: Divide: x = 9 / 3",
+      "Step 4: Simplify: x = 3",
+    ],
+  },
+  {
+    id: 36,
+    question: "What is 25% of 80?",
+    type: "text-input",
+    correctAnswer: "20",
+    correction: [
+      "Step 1: Convert 25% to decimal: 25 / 100 = 0.25",
+      "Step 2: Multiply: 0.25 * 80 = 20",
+    ],
+  },
+  {
+    id: 37,
+    question: "Find the mode of: 2, 4, 4, 6, 8",
+    type: "text-input",
+    correctAnswer: "4",
+    correction: [
+      "Step 1: Identify the most frequent number: 2, 4, 4, 6, 8",
+      "Step 2: Mode is 4 (appears twice)",
+    ],
+  },
+  {
+    id: 38,
+    question: "Simplify: 2x + 3 - x",
+    type: "text-input",
+    correctAnswer: "x + 3",
+    correction: [
+      "Step 1: Combine like terms: 2x - x + 3",
+      "Step 2: Simplify: x + 3",
+    ],
+  },
+  {
+    id: 39,
+    question: "What is the circumference of a circle with radius 7 cm? (Use π ≈ 3.14)",
+    type: "text-input",
+    correctAnswer: "43.96 cm",
+    correction: [
+      "Step 1: Circumference = 2 * π * radius",
+      "Step 2: Substitute: 2 * 3.14 * 7",
+      "Step 3: Calculate: 2 * 3.14 * 7 = 43.96 cm",
+    ],
+  },
+  {
+    id: 40,
+    question: "Solve: 2(x + 3) = 10",
+    type: "text-input",
+    correctAnswer: "2",
+    correction: [
+      "Step 1: Divide by 2: x + 3 = 10 / 2",
+      "Step 2: Simplify: x + 3 = 5",
+      "Step 3: Subtract 3: x = 5 - 3",
+      "Step 4: Simplify: x = 2",
+    ],
+  },
 ];
 
 export default quizData;

@@ -25,7 +25,7 @@ export default function QuestionView({ examYear, subject, tutor, questions }: Qu
       {/* Left Panel (Question Content) */}
       <div className="w-3/4 space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between bg-purple-100 p-4 rounded-lg">
+        <div className="flex items-center justify-between bg-[linear-gradient(to_right,_#640789,_#AE00D1)] text-white  p-4 rounded-lg">
           <div className="flex items-center gap-2">
             <span className="text-lg font-semibold text-purple-900">PeakClass Virtual School</span>
             <span className="text-sm text-gray-600">{`WAEC ${examYear} Theory - ${subject}`}</span>

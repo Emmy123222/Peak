@@ -4,7 +4,7 @@ export type QuizOption = {
   text: string;
 };
 
-export type QuizQuestion = {
+export interface QuizQuestion {
   id: number;
   question: string;
   type: "multiple-choice" | "text-input";

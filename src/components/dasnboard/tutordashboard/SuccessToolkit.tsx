@@ -5,7 +5,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PDF from "./PDF";
-import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard"; // Correct the path if needed
+import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard";
+import QuestionView from "./QuestionViews";
 
 interface SuccessToolkitProps {
   examName: string;
@@ -13,7 +14,7 @@ interface SuccessToolkitProps {
   features: string[];
   icon: string;
   color: string;
-  className?: string; // Add className prop to allow parent styling
+  className?: string;
 }
 
 export default function SuccessToolkit({
@@ -25,84 +26,87 @@ export default function SuccessToolkit({
   className,
 }: SuccessToolkitProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [showVideoDashboard, setShowVideoDashboard] = useState(false); // State to toggle VideoDashboard
-  const [pastQuestionTitle, setPastQuestionTitle] = useState<string>(""); // Track past question title
+  const [showVideoDashboard, setShowVideoDashboard] = useState(false);
+  const [showQuestionView, setShowQuestionView] = useState(false);
+  const [pastQuestionTitle, setPastQuestionTitle] = useState<string>("");
 
   const resources = {
     title1: "Video solution",
     title: `Nail ${examName} with adaptive mock tests, syllabus-focused drills, and`,
     badges: [
-      { label: "130+ Topics", icon: "📚" },
-      { label: "109+ Videos", icon: "🎥" },
-      { label: "900+ Solved questions", icon: "✅" },
+      { label: "130+ Topics", icon: "/icons/file1.png" },
+      { label: "109+ Videos", icon: "/icons/file2.png" },
+      { label: "900+ Solved questions", icon: "/icons/file3.png" },
     ],
     items: Array.from({ length: 24 }, (_, i) => ({
-      title: `${2000 + i} Past questions`, // Years from 2001 to 2024
+      title: `${2000 + i} Past questions`,
       link: `#past-questions-${2000 + i}`,
     })),
   };
 
   const handleVideoPastQuestionClick = (title: string) => {
-    console.log("Video past question clicked in SuccessToolkit:", title); // Debug log
-    setPastQuestionTitle(title); // Set the past question title
-    setShowVideoDashboard(true); // Show VideoDashboard
-    console.log("After setting state - pastQuestionTitle:", title, "showVideoDashboard:", true); // Debug log
+    setPastQuestionTitle(title);
+    setShowVideoDashboard(true);
+  };
+
+  const handlePdfPastQuestionClick = (title: string) => {
+    setPastQuestionTitle(title);
+    setShowQuestionView(true);
   };
 
   const handleYearChange = (newTitle: string) => {
-    console.log("Year changed to:", newTitle); // Debug log
-    setPastQuestionTitle(newTitle); // Update the past question title
+    setPastQuestionTitle(newTitle);
   };
 
   const handleBackToResources = () => {
-    console.log("handleBackToResources called"); // Debug log
-    setShowVideoDashboard(false); // Return to SuccessToolkit view
-    setPastQuestionTitle(""); // Reset past question title
-    console.log("After back to resources - showVideoDashboard:", false, "pastQuestionTitle:", ""); // Debug log
+    setShowVideoDashboard(false);
+    setShowQuestionView(false);
+    setPastQuestionTitle("");
   };
 
-  // Render VideoDashboard if a past question is clicked in the Video solution section
+  function cn(...classes: (string | undefined | false | null)[]): string {
+    return classes.filter(Boolean).join(" ");
+  }
+
+  // Conditionally render QuestionView or VideoDashboard full screen
+  if (showQuestionView) {
+    return (
+      <QuestionView
+        examName={examName}
+        pastQuestionTitle={pastQuestionTitle}
+        onBack={handleBackToResources}
+      />
+    );
+  }
+
   if (showVideoDashboard) {
-    console.log("Rendering VideoDashboard with title:", pastQuestionTitle); // Debug log
     return (
       <VideoDashboard
         examName={examName}
         pastQuestionTitle={pastQuestionTitle}
         onBack={handleBackToResources}
-        onYearChange={handleYearChange} // Pass the year change callback
+        onYearChange={handleYearChange}
       />
     );
   }
 
-  function cn(...classes: (string | undefined | false | null)[]): string {
-    return classes.filter(Boolean).join(" ");
-  }
   return (
     <div className={cn("space-y-6 flex flex-col h-full w-full", className)}>
-      <div
-        className={`relative ${color} rounded-2xl h-40 flex items-center justify-center flex-shrink-0`}
-      >
+      <div className={`relative ${color} rounded-2xl h-40 flex items-center justify-center flex-shrink-0`}>
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-4xl">{icon}</span>
         </div>
       </div>
+
       <Tabs defaultValue="overview" className="w-full flex-1 flex flex-col">
-        <TabsList className="bg-gray-100 rounded-2xl p-1 flex-shrink-0">
-          <TabsTrigger value="overview" className="rounded-xl">
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="resources" className="rounded-xl">
-            Resources
-          </TabsTrigger>
+        <TabsList className="rounded-2xl p-1 flex-shrink-0 justify-start">
+          <TabsTrigger value="overview" className="rounded-xl">Overview</TabsTrigger>
+          <TabsTrigger value="resources" className="rounded-xl">Resources</TabsTrigger>
         </TabsList>
-        <TabsContent
-          value="overview"
-          className="mt-4 flex-1 overflow-auto"
-        >
+
+        <TabsContent value="overview" className="mt-4 flex-1 overflow-auto">
           <div className="space-y-4 h-full">
-            <h2 className="text-xl font-semibold text-foreground">
-              {examName} Success Toolkit
-            </h2>
+            <h2 className="text-xl font-semibold text-foreground">{examName} Success Toolkit</h2>
             <p className="text-sm text-muted-foreground">{description}</p>
             <h3 className="text-lg font-medium text-foreground">Why Us?</h3>
             <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground h-full overflow-auto">
@@ -112,14 +116,13 @@ export default function SuccessToolkit({
             </ul>
           </div>
         </TabsContent>
-        <TabsContent
-          value="resources"
-          className="mt-4 flex-1 overflow-auto"
-        >
+
+        <TabsContent value="resources" className="mt-4 flex-1 overflow-auto">
           <div className="space-y-8 h-full">
             <h3 className="text-lg font-semibold text-foreground">
               Resources for {examName}
             </h3>
+
             <div className="space-y-4 mt-4 h-full flex flex-col">
               <div className="p-4 bg-white rounded-xl border border-[#E4E4E7] flex-1 flex flex-col">
                 <div className="flex flex-col space-y-2">
@@ -143,13 +146,15 @@ export default function SuccessToolkit({
                     {resources.badges.map((badge, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full flex items-center"
+                        className="px-2 py-1 text-purple-800 text-xs rounded-full flex items-center gap-2"
                       >
-                        {badge.icon} {badge.label}
+                        <img src={badge.icon} alt={badge.label} className="w-[20px] h-[20px]" />
+                        <span className="text-sm font-medium text-gray-700">{badge.label}</span>
                       </span>
                     ))}
                   </div>
                 </div>
+
                 {!isCollapsed && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 flex-1 overflow-auto">
                     {resources.items.map((resource, index) => (
@@ -158,20 +163,21 @@ export default function SuccessToolkit({
                         onClick={() => handleVideoPastQuestionClick(resource.title)}
                         className="flex items-center p-3 rounded-xl border border-[#E4E4E7] hover:bg-gray-50 transition-colors cursor-pointer w-full text-left"
                       >
-                        <div className="mr-3">
-                          <FileText className="h-5 w-5 text-muted-foreground" />
-                        </div>
                         <div className="flex-1">
                           <h4 className="text-sm font-medium text-foreground">
                             {resource.title}
                           </h4>
+                        </div>
+                        <div className="mr-3">
+                          <img src="/icons/file4.png" alt="" />
                         </div>
                       </button>
                     ))}
                   </div>
                 )}
               </div>
-              <PDF examName={examName}  />
+
+              <PDF examName={examName} onPastQuestionClick={handlePdfPastQuestionClick} />
             </div>
           </div>
         </TabsContent>
