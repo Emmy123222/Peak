@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Card,
   CardContent,
@@ -8,16 +7,15 @@ import {
 } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+// import { WeeklyStreakProps } from "../../../../../../type/type";
 
-interface WeeklyStreakProps {
-  onViewAll?: () => void;
-}
 
-export default function WeeklyStreakSection({ onViewAll }: WeeklyStreakProps) {
+
+function WeeklyStreakSection({ onViewAll }: any) {
   return <WeeklyStreak onViewAll={onViewAll} />;
 }
 
-function WeeklyStreak({ onViewAll }: WeeklyStreakProps) {
+function WeeklyStreak({ onViewAll }: any) {
   return (
     <Card className="w-full rounded-2xl border border-[#E4E4E7] shadow-sm">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -51,3 +49,5 @@ function WeeklyStreak({ onViewAll }: WeeklyStreakProps) {
     </Card>
   );
 }
+
+export default WeeklyStreakSection;

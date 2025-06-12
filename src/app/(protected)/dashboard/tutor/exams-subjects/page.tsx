@@ -7,9 +7,9 @@ import { ChevronRight } from "lucide-react";
 import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import Link from "next/link";
-import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
+import SuccessToolkit from "@/components/dashboard/tutordashboard/SuccessToolkit";
 import { ExamCard } from "../../../../../../type/type";
-import SuccessToolkit1 from "@/components/dasnboard/tutordashboard/SuccessToolkit1";
+import SuccessToolkit1 from "@/components/dashboard/tutordashboard/SuccessToolkit1";
 
 // Subject-specific data for SuccessToolkit1
 const topicData = {

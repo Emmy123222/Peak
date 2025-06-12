@@ -2,21 +2,28 @@
 
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { WelcomeHeader } from "../Welcome/Welcomes";
-import { PerformanceSection } from "../Performance/Performance";
-import { WeeklyStreakTabs } from "../weekly/Weekly";
-import { SubjectProgressTracker } from "../Subject/Subjects";
-import { PracticeQuestions } from "../practice/Practise";
+// import { WelcomeHeader } from "../Welcome/Welcomes";
+// import { PerformanceSection } from "../Performance/Performance";
+// import { WeeklyStreakTabs } from "../weekly/Weekly";
+// import { SubjectProgressTracker } from "../Subject/Subjects";
+// import { PracticeQuestions } from "../practice/Practise";
 import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard";
-import SuccessToolkit from "@/components/dasnboard/tutordashboard/SuccessToolkit";
+// import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard";
+import SuccessToolkit from "@/components/dashboard/tutordashboard/SuccessToolkit";
 import { Button } from "@/components/ui/button";
-import { ExamCard } from "../../../../../../type/type";
+import { ExamCard } from "../../../type/type";
+import { WelcomeHeader } from "@/app/(protected)/dashboard/student/Welcome/Welcomes";
+import { PerformanceSection } from "@/app/(protected)/dashboard/student/Performance/Performance";
+import { WeeklyStreakTabs } from "@/app/(protected)/dashboard/student/weekly/Weekly";
+import { PracticeQuestions } from "@/app/(protected)/dashboard/student/practice/Practise";
+import { SubjectProgressTracker } from "@/app/(protected)/dashboard/student/Subject/Subjects";
+// import { ExamCard } from "../../../../../../type/type";
 
-export function DashboardContent() {
+
+export function StudentDashboard() {
   const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null); // Track selected exam for SuccessToolkit
   const [showWeeklyAll, setShowWeeklyAll] = useState(false); // Track "View all" for WeeklyStreak
 
@@ -187,7 +194,7 @@ export function DashboardContent() {
                 </TabsTrigger>
               ))}
             </TabsList>
-            {tabConfig.map((tab) => (
+            {tabConfig.map((tab:any) => (
               <TabsContent key={tab.value} value={tab.value} className="mt-4">
                 {tab.value === "exam-prep"
                   ? tab.content(examCards, displayedCards, renderButton)

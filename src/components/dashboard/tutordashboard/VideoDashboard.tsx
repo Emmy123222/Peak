@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, Maximize2, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react';
 import AnalyticsModal from './AnalyticsModal'; // Ensure this path is correct
 import Link from 'next/link';
-import ChatInterface from '../tutordashboard/Chat'; // Import the ChatInterface component
+import ChatInterface from './Chat'; // Import the ChatInterface component
 
 interface Subsection {
   id: string;

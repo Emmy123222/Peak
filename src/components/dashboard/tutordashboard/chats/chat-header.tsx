@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '../chats/chat-layout';
+import { User } from './chat-layout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Info } from 'lucide-react';

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import ProfileCard from '@/components/dasnboard/tutordashboard/ProfilePage'; // not ProfilePage
+import ProfileCard from '@/components/dashboard/tutordashboard/ProfilePage'; // not ProfilePage
 
 const ProfilePage = () => {
   return (

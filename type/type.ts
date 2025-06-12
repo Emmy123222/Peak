@@ -9,6 +9,7 @@ export interface QuizQuestion {
   question: string;
   type: "multiple-choice" | "text-input";
   options?: QuizOption[];
+  correction: string[];
   correctAnswer: string;
 };
 
@@ -28,4 +29,8 @@ export interface ExamCard {
   subjects?: string[];
   features: string[];
   className: string;
+}
+
+export interface WeeklyStreakProps {
+  onViewAll?: () => void;
 }

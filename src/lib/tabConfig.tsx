@@ -9,7 +9,7 @@ import { motion } from "@/lib/motion-wrapper";
 import { ExamCard } from "../../type/type";
 
 import { JuniorSecondaryTab as JuniorSecondaryContentTab } from "@/lib/JuniorSecondaryContent";
-import SuccessToolkit1 from "../components/dasnboard/tutordashboard/SuccessToolkit1";
+import SuccessToolkit1 from "../components/dashboard/tutordashboard/SuccessToolkit1";
 
 // --- Shared Types ---
 type TabProps = {
@@ -21,7 +21,7 @@ type TabProps = {
 // --- Exam Prep Tab ---
 export const ExamPrepTab: React.FC<TabProps> = ({ displayedCards, handleButtonClick }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {displayedCards.map((card, i) => (
+    {displayedCards?.map((card, i) => (
       <motion.div
         key={card.id}
         initial={{ opacity: 0, y: 20 }}

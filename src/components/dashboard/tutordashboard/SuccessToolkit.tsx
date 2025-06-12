@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PDF from "./PDF";
-import VideoDashboard from "@/components/dasnboard/tutordashboard/VideoDashboard";
+import VideoDashboard from "@/components/dashboard/tutordashboard/VideoDashboard";
 import QuestionView from "./QuestionViews";
 
 interface SuccessToolkitProps {

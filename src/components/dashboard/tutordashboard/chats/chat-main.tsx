@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { User, Conversation } from '../chats/chat-layout';
-import { ChatHeader } from '../chats/chat-header';
-import { ChatMessages } from '../chats/chat-messages';
-import { ChatInput } from '../chats/chat-input';
-import { GroupInfo } from '../chats/group-info';
+import { User, Conversation } from './chat-layout';
+import { ChatHeader } from './chat-header';
+import { ChatMessages } from './chat-messages';
+import { ChatInput } from './chat-input';
+import { GroupInfo } from './group-info';
 
 interface ChatMainProps {
   conversation: Conversation;

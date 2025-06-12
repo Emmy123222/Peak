@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tabs";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
-import Certificate  from "@/components/dasnboard/tutordashboard/Certificate";
+import Certificate  from "@/components/dashboard/tutordashboard/Certificate";
   
 
 export default function WeeklyStreakDetails() {

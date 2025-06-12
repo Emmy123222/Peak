@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { QuizHeader } from './QuizHeader';
-import { MultipleChoiceQuestion } from '../Question/MultipleChoiceQuestion';
-import { TextInputQuestion } from '../Question/TextInputQuestion';
+import { MultipleChoiceQuestion } from './MultipleChoiceQuestion';
+import { TextInputQuestion } from './TextInputQuestion';
 import quizData from '@/lib/quizData';
 import { QuizResultModal } from './QuizResultModal';
 import QuizSummary from './QuizSummary';

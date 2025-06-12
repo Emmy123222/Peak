@@ -1,6 +1,6 @@
 'use client';
 
-import { ChatLayout, User, Conversation, Message } from '@/components/dasnboard/tutordashboard/chats/chat-layout';
+import { ChatLayout, User, Conversation, Message } from '@/components/dashboard/tutordashboard/chats/chat-layout';
 import { useState } from 'react';
 import { generateId } from '@/lib/utils';
 

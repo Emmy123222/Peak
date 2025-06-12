@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Rocket, Clock } from 'lucide-react';
-import Quiz from '@/components/dasnboard/tutordashboard/Question/Quiz';
+import Quiz from '@/components/dashboard/tutordashboard/Question/Quiz';
 
 const PracticeQuestionOverview = () => {
   const [isQuizStarted, setIsQuizStarted] = useState(false);

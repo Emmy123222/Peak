@@ -1,11 +1,11 @@
 'use client';
 
-import { User } from '../chats/chat-layout';
+import { User } from './chat-layout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronLeft, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import { MediaLinks } from '../chats/MediaLinks';
+import { MediaLinks } from './MediaLinks';
 
 interface GroupInfoProps {
   isOpen: boolean;

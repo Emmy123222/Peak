@@ -8,7 +8,8 @@ import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import Link from "next/link";
 import SuccessToolkit from "@/components/dashboard/tutordashboard/SuccessToolkit";
-import { ExamCard } from "../../../../../../type/type";
+import { ExamCard } from "../../../type/type";
+// import { ExamCard } from "../../../../../../type/type";
 
 export default function ExamPrepSection() {
   const pathname = usePathname();
@@ -16,13 +17,8 @@ export default function ExamPrepSection() {
   const displayedCards = showAll ? examCards : examCards.slice(0, 7);
   const [selectedExam, setSelectedExam] = useState<ExamCard | null>(null);
 
-  const handleButtonClick = (card: ExamCard) => {
-    setSelectedExam(card); // Set the selected exam to show SuccessToolkit
-  };
-
-  const handleCloseToolkit = () => {
-    setSelectedExam(null); // Clear the selected exam to return to the card list
-  };
+  const handleButtonClick = (card: ExamCard) => setSelectedExam(card);
+  const handleCloseToolkit = () => setSelectedExam(null);
 
   return (
     <div className="space-y-4">
@@ -56,13 +52,13 @@ export default function ExamPrepSection() {
             )}
           </div>
           <TabsList className="bg-[#F3F5F9] rounded-[26px]">
-            {tabConfig?.map((tab:any) => (
+            {tabConfig?.map((tab) => (
               <TabsTrigger key={tab.value} value={tab.value}>
                 {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
-          {tabConfig?.map((tab:any) => (
+          {tabConfig?.map((tab: any) => (
             <TabsContent key={tab.value} value={tab.value} className="mt-4">
               {tab.content(examCards, displayedCards, handleButtonClick)}
             </TabsContent>

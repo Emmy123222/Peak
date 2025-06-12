@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "@/lib/motion-wrapper";
-import { ExamCard } from "../../type/ExamCard";
-import SuccessToolkit1 from "../components/dasnboard/tutordashboard/SuccessToolkit1";
+import SuccessToolkit1 from "../components/dashboard/tutordashboard/SuccessToolkit1";
+import { ExamCard } from "../../type/type";
 
 type TabProps = {
   examCards: ExamCard[];

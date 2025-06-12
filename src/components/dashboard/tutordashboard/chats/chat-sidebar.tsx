@@ -1,6 +1,6 @@
 'use client';
 
-import { User, Conversation } from '../chats/chat-layout';
+import { User, Conversation } from './chat-layout';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDistanceToNow } from 'date-fns';

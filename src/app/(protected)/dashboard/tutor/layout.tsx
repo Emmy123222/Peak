@@ -17,7 +17,7 @@ import {
 import { cn } from "@/lib/utils";
 import "@/app/globals.css";
 import { Button } from "@/components/ui/button";
-import ProfileCard from "@/components/dasnboard/tutordashboard/ProfilePage";
+import ProfileCard from "@/components/dashboard/tutordashboard/ProfilePage";
 
 interface SidebarLinkProps {
   href: string;

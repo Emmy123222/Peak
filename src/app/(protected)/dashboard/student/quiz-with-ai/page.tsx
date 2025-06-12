@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Sidebar } from "@/components/dasnboard/tutordashboard/SideBar";
-import { TopFilterBar } from "@/components/dasnboard/tutordashboard/TopFilterBar";
-import { ChatWindow } from "@/components/dasnboard/tutordashboard/ChatWindow";
-import { QuestionRenderer } from "@/components/dasnboard/tutordashboard/QuestionRenderer";
+import { Sidebar } from "@/components/dashboard/tutordashboard/SideBar";
+import { TopFilterBar } from "@/components/dashboard/tutordashboard/TopFilterBar";
+import { ChatWindow } from "@/components/dashboard/tutordashboard/ChatWindow";
+import { QuestionRenderer } from "@/components/dashboard/tutordashboard/QuestionRenderer";
 import { Button } from "@/components/ui/button";
 
 interface Question {

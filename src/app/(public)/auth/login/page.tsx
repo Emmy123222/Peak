@@ -55,7 +55,7 @@ export default function Login() {
     setIsError(false);
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, data);
-      
+      console.log(res)
       dispatch(login(res.data.data));
 
 
@@ -135,7 +135,7 @@ export default function Login() {
             <input
               id="password"
               type={showPassword ? "text" : "password"}
-              placeholder="olivia@untitledui.com"
+              placeholder="****"
               className={`w-full pl-10 pr-10 py-2 border rounded-md focus:outline-none focus:ring-2 ${
                 errors.password
                   ? "border-red-300 focus:ring-red-200"

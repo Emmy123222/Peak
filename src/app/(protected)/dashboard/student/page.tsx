@@ -1,7 +1,5 @@
-"use client";
-
-import { DashboardContent } from "./dashboard/Dashboard";
+import { StudentDashboard } from "@/components/dashboard/Student";
 
 export default function Page() {
-  return <DashboardContent />;
+  return <StudentDashboard />;
 }
