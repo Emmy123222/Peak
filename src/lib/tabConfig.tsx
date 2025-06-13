@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "@/lib/motion-wrapper";
-import { ExamCard } from "../../type/type";
+import { ExamCard, TabConfigItem } from "../../type/type";
 
 import { JuniorSecondaryTab as JuniorSecondaryContentTab } from "@/lib/JuniorSecondaryContent";
 import SuccessToolkit1 from "../components/dashboard/tutordashboard/SuccessToolkit1";
@@ -111,8 +111,10 @@ export const SimpleMessageTab: React.FC<{ message: string }> = ({ message }) => 
   </div>
 );
 
+
+
 // --- Tab Configuration ---
-export const tabConfig = [
+export const tabConfig: TabConfigItem[] = [
   {
     value: "exam-prep",
     label: "Exam prep",

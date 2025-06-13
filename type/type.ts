@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 // types.ts
 export type QuizOption = {
   id: string;
@@ -33,4 +35,29 @@ export interface ExamCard {
 
 export interface WeeklyStreakProps {
   onViewAll?: () => void;
+}
+
+export interface TabComponentProps {
+  examCards?: ExamCard[];
+  displayedCards?: ExamCard[];
+  handleButtonClick?: (card: ExamCard) => void;
+}
+
+export type TabProps = {
+  examCards: ExamCard[];
+  displayedCards: ExamCard[];
+  handleButtonClick: (card: ExamCard) => void;
+};
+
+export type TabComponent = FC<TabProps>;
+
+export interface TabConfigItem {
+  value: string;
+  label: string;
+  Component: TabComponent;
+}
+
+export interface WaitlistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
 }

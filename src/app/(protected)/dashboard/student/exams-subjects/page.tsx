@@ -8,7 +8,7 @@ import { tabConfig } from "@/lib/tabConfig";
 import { examCards } from "@/lib/examCards";
 import Link from "next/link";
 import SuccessToolkit from "@/components/dashboard/tutordashboard/SuccessToolkit";
-import { ExamCard } from "../../../../../../type/type";
+import { ExamCard, TabConfigItem } from "../../../../../../type/type";
 
 export default function ExamPrepSection() {
   const pathname = usePathname();
@@ -56,15 +56,19 @@ export default function ExamPrepSection() {
             )}
           </div>
           <TabsList className="bg-[#F3F5F9] rounded-[26px]">
-            {tabConfig?.map((tab:any) => (
+            {tabConfig?.map((tab: TabConfigItem) => (
               <TabsTrigger key={tab.value} value={tab.value}>
                 {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
-          {tabConfig?.map((tab:any) => (
+          {tabConfig?.map((tab: TabConfigItem) => (
             <TabsContent key={tab.value} value={tab.value} className="mt-4">
-              {tab.content(examCards, displayedCards, handleButtonClick)}
+              <tab.Component
+                examCards={examCards}
+                displayedCards={displayedCards}
+                handleButtonClick={handleButtonClick}
+              />
             </TabsContent>
           ))}
         </Tabs>

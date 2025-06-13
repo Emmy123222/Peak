@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { HeroForm } from "@/components/landing/HeroForm";
 import { SpeechBubble } from "@/components/landing/SpeechBubble";
+import Success from "./Success";
 
 export function Hero() {
   const [email, setEmail] = useState("");
@@ -14,19 +15,20 @@ export function Hero() {
     console.log("Submitted email:", submittedEmail);
     setEmail("");
   };
+  
 
   return (
     <section className="relative w-full pt-24 px-4 pb-16 overflow-hidden">
       <div className="container mx-auto  flex flex-col lg:flex-row items-center relative z-10 justify-between">
         <div className="w-full lg:w-1/2 lg:pr-8 z-50">
-          <h1 className="font-montserrat font-bold text-4xl max-md:text-[55px] leading-[75px] tracking-[0px]">
+          <h1 className="font-montserrat font-bold text-4xl md:text-[55px] leading-[75px] tracking-[0px]">
             Unlock Your Brilliance{" "}
-            <span className="block">
+            <br />
               with <span className="text-(--my-primary-color)">PeakClass</span>
-            </span>
+           
           </h1>
 
-          <p className="font-montserrat font-normal text-sm max-md:text-base leading-6 align-middle tracking-[0px] text-[#777777] mt-4">
+          <p className="font-montserrat font-normal text-sm md:text-base leading-6 align-middle tracking-[0px] text-[#777777] mt-4">
             Transform your academic journey with expert tutoring, AI-driven
             tools, and a curriculum designed to shape future leaders.
           </p>
@@ -42,7 +44,9 @@ export function Hero() {
               onSubmit={handleSubmit}
               email={email}
               setEmail={setEmail}
+              isEmail={false}
             />
+
           </div>
         </div>
         {/* Right side (Images) */}

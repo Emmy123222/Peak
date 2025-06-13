@@ -10,11 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Mail } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
+import { WaitlistModalProps } from "../../../type/type";
 
-interface WaitlistModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+
 
 const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
   const [email, setEmail] = useState("");

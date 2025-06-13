@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {useState} from "react"
 import WaitlistModal from "./WaitlistModal";
+import Success from "./Success";
 interface HeroFormProps {
   email: string;
   setEmail: (email: string) => void;
   onSubmit: (email: string) => void;
+  isEmail: boolean
 }
 
-export function HeroForm({ email, setEmail, onSubmit }: HeroFormProps) {
+export function HeroForm({ email, setEmail, onSubmit, isEmail }: HeroFormProps) {
 
     const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
@@ -53,7 +55,7 @@ export function HeroForm({ email, setEmail, onSubmit }: HeroFormProps) {
           type="submit"
 onClick={openWaitlist}
 
-          className="rounded-full text-sm font-semibold bg-(--my-primary-color) hover:bg-[#7200D1] px-6 py-3 text-white font-medium cursor-pointer"
+          className="rounded-full text-sm font-semi bold bg-(--my-primary-color) hover:bg-[#7200D1] px-6 py-3 text-white font-medium cursor-pointer"
         >
           I'm in
         </Button>
@@ -62,7 +64,9 @@ onClick={openWaitlist}
 
     </form>
                 {/* Waitlist Modal */}
-      <WaitlistModal isOpen={isWaitlistOpen} onClose={closeWaitlist} />
+
+      {!isEmail ? email.length > 7 && <Success isOpen={isWaitlistOpen} onClose={closeWaitlist} />:
+      <WaitlistModal isOpen={isWaitlistOpen} onClose={closeWaitlist} />}
     </>
   );
 }

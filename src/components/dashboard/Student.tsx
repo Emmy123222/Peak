@@ -15,11 +15,11 @@ import Link from "next/link";
 import SuccessToolkit from "@/components/dashboard/tutordashboard/SuccessToolkit";
 import { Button } from "@/components/ui/button";
 import { ExamCard } from "../../../type/type";
-import { WelcomeHeader } from "@/app/(protected)/dashboard/student/Welcome/Welcomes";
-import { PerformanceSection } from "@/app/(protected)/dashboard/student/Performance/Performance";
-import { WeeklyStreakTabs } from "@/app/(protected)/dashboard/student/weekly/Weekly";
-import { PracticeQuestions } from "@/app/(protected)/dashboard/student/practice/Practise";
-import { SubjectProgressTracker } from "@/app/(protected)/dashboard/student/Subject/Subjects";
+import { WelcomeHeader } from "@/components/dashboard/students/Welcome/Welcomes";
+import { PerformanceSection } from "@/components/dashboard/students/Performance/Performance";
+import { WeeklyStreakTabs } from "@/components/dashboard/students/weekly/Weekly";
+import { PracticeQuestions } from "@/components/dashboard/students/practice/Practise";
+import { SubjectProgressTracker } from "@/components/dashboard/students/Subject/Subjects";
 // import { ExamCard } from "../../../../../../type/type";
 
 

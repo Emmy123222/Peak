@@ -27,8 +27,8 @@
     "@typescript-eslint/member-delimiter-style":"off",
     "@typescript-eslint/quotes":"off",
     
-    " @typescript-eslint/no-unused-vars":"off",
-    " @typescript-eslint/dot-notation":"off",
+    "@typescript-eslint/no-unused-vars":"off",
+    "@typescript-eslint/dot-notation":"off",
     "@typescript-eslint/no-dynamic-delete":"off",
     "@typescript-eslint/prefer-optional-chain":"off",
     "@typescript-eslint/comma-dangle":"off",
